@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="main-head">
+    <meta charset="UTF-8">
+    <title>Food Recommend Web Service</title>
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+
+    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFon, "Noto Sans KR", "Segoe UI", Roboto;
+        }
+
+        footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 60px;
+        }
+    </style>
+</head>
+
+<nav th:fragment="main-nav" class="navbar navbar-light bg-white">
+    <a class="navbar-brand" th:href="@{'/'}">
+        Food Recommend
+    </a>
+    <div class="d-flex flex-row-reverse">
+        <a class="nav-link p-2 font-weight-bold text-dark" th:href="@{'/sign-up'}">회원가입</a>
+        <a class="nav-link p-2 font-weight-bold text-dark" th:href="@{'/login'}">로그인</a>
+    </div>
+</nav>
+
+<footer th:fragment="main-footer" class="bg-light">
+    <div class="row justify-content-center">
+        <h5 class="text-center">2020 Innovation Hackaton</h5>
+    </div>
+</footer>
+
+</html>
