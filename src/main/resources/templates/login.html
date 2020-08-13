@@ -5,8 +5,8 @@
 <div th:replace="fragments.html :: main-nav"></div>
 
 <div class="jumbotron bg-white">
-    <h2 class="text-center font-weight-bold m-3">로그인</h2>
-    <div class="container col-sm-4">
+    <h2 class="text-center font-weight-bold m-3 main-text-color">로그인 하기</h2>
+    <div class="container col-sm-4 mt-2">
         <a th:href="@{'/login/oauth2/authorization/google'}" class="btn btn-block btn-outline-secondary">구글로 로그인하기</a>
         <a th:href="@{'/login/oauth2/authorization/naver'}" class="btn btn-block btn-outline-success">네이버로 로그인하기</a>
         <div class="dropdown-divider mt-4"></div>
@@ -22,6 +22,10 @@
                 <small id="passwordHelp" class="form-text text-muted">비밀번호를 입력 해주세요.</small>
             </div>
             <button type="submit" class="btn btn-primary btn-block font-weight-bold">로그인 하기</button>
+            <br/>
+            <div th:if="${param.error}" class="alert alert-danger" role="alert">
+                <p>이메일 또는 패스워드가 정확하지않습니다. 다시 확인후 입력 해주세요.</p>
+            </div>
         </form>
     </div>
 </div>

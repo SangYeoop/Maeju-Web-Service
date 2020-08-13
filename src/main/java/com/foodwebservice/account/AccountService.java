@@ -6,6 +6,9 @@ import com.foodwebservice.account.type.LocalAccount;
 import com.foodwebservice.account.type.OAuth2Account;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -18,6 +21,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 
 @RequiredArgsConstructor
@@ -33,7 +37,7 @@ public class AccountService implements UserDetailsService, OAuth2UserService<OAu
         Account account = modelMapper.map(signUpForm, Account.class);
         account.setCreatedAt(LocalDateTime.now());
         account.setAccountType(accountType);
-        accountRepository.save(account);
+        login(accountRepository.save(account));
     }
 
     @Override
@@ -61,6 +65,13 @@ public class AccountService implements UserDetailsService, OAuth2UserService<OAu
         return new OAuth2Account(account, authAttributes);
     }
 
+    private void login(Account account){
+        UsernamePasswordAuthenticationToken token =
+                new UsernamePasswordAuthenticationToken(
+                        new LocalAccount(account), account.getPassword(), List.of(new SimpleGrantedAuthority("ROLE_USER")));
+        SecurityContextHolder.getContext().setAuthentication(token);
+    }
+
     private Account saveOrUpdate(String registrationId, Map<String, Object> attributes){
         Account account = accountRepository.findByEmail((String)attributes.get("email"))
                 .map(entity -> entity.update((String)attributes.get("name")))
@@ -69,8 +80,8 @@ public class AccountService implements UserDetailsService, OAuth2UserService<OAu
     }
 
     private Account makeOAuthAccount(String registrationId, Map<String, Object> attributes){
-        AccountType accountType = null;
-        Account account = null;
+        Account account;
+
         if(registrationId.equals("google")){
             account = Account.builder()
                     .email((String)attributes.get("email"))

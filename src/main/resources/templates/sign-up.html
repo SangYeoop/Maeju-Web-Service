@@ -5,28 +5,28 @@
 <div th:replace="fragments.html :: main-nav"></div>
 
 <div class="jumbotron bg-white">
-    <h2 class="text-center font-weight-bold">회원가입</h2>
+    <h2 class="text-center font-weight-bold main-text-color">회원가입 하기</h2>
     <div class="container col-sm-4">
         <form th:action="@{'/sign-up'}" th:method="post" th:object="${signUpForm}">
             <div class="form-group">
                 <label for="name">이름</label>
-                <input type="text" th:field="*{name}" class="form-control" id="name" aria-describedby="nameHelp" placeholder="이름">
+                <input type="text" th:field="*{name}" class="form-control" id="name" aria-describedby="nameHelp" placeholder="이름" required>
                 <small id="nameHelp" class="form-text text-muted">이름을 입력해주세요.</small>
             </div>
             <div class="form-group">
                 <label for="email">이메일</label>
-                <input type="email" th:field="*{email}" class="form-control" id="email" aria-describedby="emailHelp" placeholder="이메일">
+                <input type="email" th:field="*{email}" class="form-control" id="email" aria-describedby="emailHelp" placeholder="이메일" required>
                 <small id="emailHelp" class="form-text text-muted">회원 이메일 주소를 입력 해주세요.</small>
             </div>
 
             <div class="form-group">
                 <label for="password">비밀번호</label>
-                <input type="password" th:field="*{password}" class="form-control" id="password" placeholder="비밀번호">
-                <small id="passwordHelp" class="form-text text-muted">비밀번호를 입력 해주세요.</small>
+                <input type="password" th:field="*{password}" class="form-control" id="password" placeholder="비밀번호" required minlength="8" maxlength="30">
+                <small id="passwordHelp" class="form-text text-muted">8자이상 30자 이하의 특수문자 또는 영어 대소문자를 <br/>포함하도록 비밀번호를 입력 해주세요.</small>
             </div>
             <div class="form-group">
                 <label for="confirmPassword">비밀번호 확인</label>
-                <input type="password" th:field="*{confirmPassword}" class="form-control" id="confirmPassword" placeholder="비밀번호 확인">
+                <input type="password" th:field="*{confirmPassword}" class="form-control" id="confirmPassword" placeholder="비밀번호 확인" required minlength="8" maxlength="30">
                 <small id="confirmPasswordHelp" class="form-text text-muted">다시 한번 비밀번호를 입력 해주세요.</small>
             </div>
 
