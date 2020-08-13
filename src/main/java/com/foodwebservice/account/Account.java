@@ -2,9 +2,9 @@ package com.foodwebservice.account;
 
 import com.foodwebservice.account.type.AccountType;
 import lombok.*;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter @Setter @EqualsAndHashCode(of = "id")
@@ -23,16 +23,12 @@ public class Account {
     @Enumerated(EnumType.STRING)
     private AccountType accountType;
 
+    private LocalDateTime createdAt;
+
     private boolean existDietType;
-
-    public void encodePassword(PasswordEncoder passwordEncoder) {
-        this.password = passwordEncoder.encode(password);
-    }
-
 
     public Account update(String name) {
         this.name = name;
-
         return this;
     }
 }

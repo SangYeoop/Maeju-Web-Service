@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <title>Food Recommend Web Service</title>
     <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css"/>
-
+    <link rel="stylesheet" href="/node_modules/@fortawesome/fontawesome-free/css/all.css">
     <script src="/node_modules/jquery/dist/jquery.min.js"></script>
     <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <style>
@@ -34,7 +34,16 @@
     </div>
 
     <div sec:authorize="isAuthenticated()" class="d-flex flex-row-reverse">
-        <span>안녕하세요!</span>
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-align-justify"></i>
+            </button>
+            <div class="dropdown-menu dropdown-menu-sm-right" aria-labelledby="dropdownMenuButton">
+                <form class="form-inline my-2 my-lg-0" th:action="@{'/logout'}" th:method="post">
+                    <button class="dropdown-item" type="submit">로그아웃</button>
+                </form>
+            </div>
+        </div>
     </div>
 </nav>
 

@@ -16,8 +16,8 @@ import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 
 @RequiredArgsConstructor
@@ -31,20 +31,23 @@ public class AccountService implements UserDetailsService, OAuth2UserService<OAu
     public void makeAccount(SignUpForm signUpForm, AccountType accountType){
         signUpForm.setPassword(passwordEncoder.encode(signUpForm.getPassword()));
         Account account = modelMapper.map(signUpForm, Account.class);
+        account.setCreatedAt(LocalDateTime.now());
         account.setAccountType(accountType);
         accountRepository.save(account);
     }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Account account = accountRepository.findByEmail(email).
-                orElseThrow(() -> new UsernameNotFoundException("email is not exist"));
+        Account account = accountRepository.findByEmail(email)
+                .filter(entity -> entity.getAccountType().equals(AccountType.LOCAL))
+                .orElseThrow(() -> new UsernameNotFoundException("email is not exist"));
         return new LocalAccount(account);
     }
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         OAuth2UserService<OAuth2UserRequest, OAuth2User> delegate = new DefaultOAuth2UserService();
+
         OAuth2User oAuth2User = delegate.loadUser(userRequest);
 
         String registrationId = userRequest.getClientRegistration().getRegistrationId();
@@ -65,19 +68,29 @@ public class AccountService implements UserDetailsService, OAuth2UserService<OAu
         return accountRepository.save(account);
     }
 
-    private Account makeOAuthAccount(String registrationId, Map<String, Object> attributes) {
+    private Account makeOAuthAccount(String registrationId, Map<String, Object> attributes){
         AccountType accountType = null;
+        Account account = null;
         if(registrationId.equals("google")){
-            accountType = AccountType.GOOGLE;
-        } else if (registrationId.equals("naver")){
-            accountType = AccountType.NAVER;
+            account = Account.builder()
+                    .email((String)attributes.get("email"))
+                    .name((String)attributes.get("name"))
+                    .accountType(AccountType.GOOGLE)
+                    .createdAt(LocalDateTime.now())
+                    .build();
+        } else if(registrationId.equals("naver")){
+            Map<String, Object> response = (Map<String, Object>)attributes.get("response");
+            account = Account.builder()
+                    .email((String)response.get("email"))
+                    .name((String)response.get("name"))
+                    .accountType(AccountType.NAVER)
+                    .createdAt(LocalDateTime.now())
+                    .build();
         }
+        else
+            throw new RuntimeException();
 
-        return accountRepository.save(Account.builder()
-                .email((String)attributes.get("email"))
-                .name((String)attributes.get("name"))
-                .accountType(accountType)
-                .build());
+        return accountRepository.save(account);
     }
 
 }
