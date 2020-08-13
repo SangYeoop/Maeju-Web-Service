@@ -1,6 +1,6 @@
 package com.foodwebservice.account.validator;
 
-import com.foodwebservice.account.SignUpForm;
+import com.foodwebservice.account.form.SignUpForm;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;

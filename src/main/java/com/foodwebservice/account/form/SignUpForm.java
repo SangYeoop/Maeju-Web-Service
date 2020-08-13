@@ -1,5 +1,6 @@
-package com.foodwebservice.account;
+package com.foodwebservice.account.form;
 
+import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.Email;
