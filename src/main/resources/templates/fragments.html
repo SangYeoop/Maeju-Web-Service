@@ -15,15 +15,15 @@
             font-family: -apple-system, BlinkMacSystemFon, "Noto Sans KR", "Segoe UI", Roboto;
         }
 
+        .main-text-color:hover, .main-text-color {
+            color: chocolate; !important;
+        }
+
         footer {
             position: absolute;
             bottom: 0;
             width: 100%;
-            height: 60px;
-        }
-
-        .main-text-color:hover, .main-text-color {
-            color: chocolate; !important;
+            height: 50px;
         }
 
     </style>
@@ -34,8 +34,8 @@
         <h3 style="color: chocolate"><i class="fas fa-seedling fa"></i>Maeju</h3>
     </a>
     <div sec:authorize="!isAuthenticated()" class="d-flex flex-row-reverse">
-        <h5><a class="nav-link p-2 font-weight-bold main-text-color" th:href="@{'/sign-up'}">회원가입</a></h5>
         <h5><a class="nav-link p-2 font-weight-bold main-text-color" th:href="@{'/login'}">로그인</a></h5>
+        <h5><a class="nav-link p-2 font-weight-bold main-text-color" th:href="@{'/sign-up'}">회원가입</a></h5>
     </div>
 
     <div sec:authorize="isAuthenticated()" class="d-flex flex-row-reverse">
@@ -43,10 +43,15 @@
             <button class="btn main-text-color" onclick="location.href = '/'"}>
                 <i class="far fa-bell fa-lg"></i>
             </button>
+            <button class="btn main-text-color" onclick="location.href = '/diet'"}>
+                <i class="far fa-id-badge fa-lg"></i>
+            </button>
             <button class="btn btn-link dropdown-toggle main-text-color" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-align-justify"></i>
             </button>
             <div class="dropdown-menu dropdown-menu-sm-right" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" th:href="@{'/settings/profile'}">회원정보</a>
+                <div class="dropdown-divider"></div>
                 <form class="form-inline my-2 my-lg-0" th:action="@{'/logout'}" th:method="post">
                     <button class="dropdown-item" type="submit">로그아웃</button>
                 </form>
@@ -55,10 +60,24 @@
     </div>
 </nav>
 
-<footer th:fragment="main-footer" class="bg-light">
+<footer th:fragment="main-footer" class="bg-light page-footer">
     <div class="row justify-content-center">
-        <h5 class="text-center">2020 Innovation Hackaton</h5>
+        <h5>2020 Innovation Hackaton</h5>
     </div>
 </footer>
+
+<div th:fragment="settings-menu (currentMenu)" class="list-group">
+    <a class="list-group-item list-group-item-action" th:classappend="${currentMenu == 'profile'}? active" th:href="@{'/settings/profile'}">프로필</a>
+    <a class="list-group-item list-group-item-action" th:classappend="${currentMenu == 'likefood'}? active" th:href="@{'/settings/likefood'}">선호 음식</a>
+    <a class="list-group-item list-group-item-action" th:classappend="${currentMenu == 'password'}? active" th:href="@{'/settings/password'}">비밀번호</a>
+    <a class="list-group-item list-group-item-action list-group-item-danger" th:classappend="${currentMenu == 'account'}" th:href="@{'/settings/account'}">계정 관리</a>
+</div>
+
+<div th:fragment="message" th:if="${message}" class="alert alert-info alert-dismissible fad show mt-3" role="alert">
+    <span th:text="${message}">메시지</span>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true"></span>
+    </button>
+</div>
 
 </html>

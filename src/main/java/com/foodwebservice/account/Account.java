@@ -1,6 +1,9 @@
 package com.foodwebservice.account;
 
+import com.foodwebservice.account.form.ProfileUpdateForm;
 import com.foodwebservice.account.type.AccountType;
+import com.foodwebservice.account.type.GenderType;
+import com.nimbusds.openid.connect.sdk.claims.Gender;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,12 +27,21 @@ public class Account {
     @Enumerated(EnumType.STRING)
     private AccountType accountType;
 
+    @Enumerated(EnumType.STRING)
+    private GenderType genderType;
+
     private LocalDateTime createdAt;
 
     private boolean existDietType;
 
-    public Account update(String name) {
-        this.name = name;
+    public Account update(ProfileUpdateForm profileUpdateForm) {
+        this.name = profileUpdateForm.getName();
+        this.genderType = profileUpdateForm.getGenderType();
+        //TODO Email은 변경하면 안됨.
         return this;
+    }
+
+    public void updatePassword(String password) {
+        this.password = password;
     }
 }

@@ -1,11 +1,16 @@
 package com.foodwebservice.account;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.foodwebservice.account.exception.NotMakeAccountException;
+import com.foodwebservice.account.form.ProfileUpdateForm;
 import com.foodwebservice.account.form.SignUpForm;
 import com.foodwebservice.account.type.AccountType;
+import com.foodwebservice.account.type.GenderType;
 import com.foodwebservice.account.type.LocalAccount;
 import com.foodwebservice.account.type.OAuth2Account;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,8 +22,10 @@ import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserServ
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
+import org.springframework.security.oauth2.core.OAuth2Error;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -32,10 +39,28 @@ public class AccountService implements UserDetailsService, OAuth2UserService<OAu
     private final ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
 
+    public boolean isEqualPassword(Account account, String password){
+        return passwordEncoder.matches(password, account.getPassword());
+    }
+
+    @Transactional
+    public Account updateProfile(Account account, ProfileUpdateForm profileUpdateForm){
+        account.update(profileUpdateForm);
+        return accountRepository.save(account);
+    }
+
+    @Transactional
+    public Account updatePassword(Account account, String password) {
+        account.updatePassword(passwordEncoder.encode(password));
+        return accountRepository.save(account);
+    }
+
+    @Transactional
     public void makeAccount(SignUpForm signUpForm, AccountType accountType){
         signUpForm.setPassword(passwordEncoder.encode(signUpForm.getPassword()));
         Account account = modelMapper.map(signUpForm, Account.class);
         account.setCreatedAt(LocalDateTime.now());
+        account.setGenderType(GenderType.NONE);
         account.setAccountType(accountType);
         login(accountRepository.save(account));
     }
@@ -59,7 +84,12 @@ public class AccountService implements UserDetailsService, OAuth2UserService<OAu
                 .getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName();
         Map<String, Object> attributes = oAuth2User.getAttributes();
 
-        Account account = saveOrUpdate(registrationId, attributes);
+        Account account;
+        if(registrationId.equals("google")) {
+            account = saveOrUpdate(registrationId, attributes);
+        }else {
+            account = saveOrUpdate(registrationId, (Map<String, Object>)attributes.get("response"));
+        }
         OAuthAttributes authAttributes = OAuthAttributes.of(registrationId, attributes, nameAttributeKey);
 
         return new OAuth2Account(account, authAttributes);
@@ -72,10 +102,12 @@ public class AccountService implements UserDetailsService, OAuth2UserService<OAu
         SecurityContextHolder.getContext().setAuthentication(token);
     }
 
-    private Account saveOrUpdate(String registrationId, Map<String, Object> attributes){
-        Account account = accountRepository.findByEmail((String)attributes.get("email"))
-                .map(entity -> entity.update((String)attributes.get("name")))
-                .orElseGet(() -> makeOAuthAccount(registrationId, attributes));
+    private Account saveOrUpdate(String registrationId, Map<String, Object> attributes) throws OAuth2AuthenticationException{
+        Account account = accountRepository.findByEmail((String)attributes.get("email")).orElseGet(() -> makeOAuthAccount(registrationId, attributes));
+        if(account.getAccountType() == AccountType.LOCAL){
+            throw new OAuth2AuthenticationException(new OAuth2Error("400", "로컬 계정으로 존재하는 아이디 입니다.", "/login"));
+        }
+        account.update(new ProfileUpdateForm((String)attributes.get("name"), account.getEmail(), account.getGenderType()));
         return accountRepository.save(account);
     }
 
@@ -88,13 +120,14 @@ public class AccountService implements UserDetailsService, OAuth2UserService<OAu
                     .name((String)attributes.get("name"))
                     .accountType(AccountType.GOOGLE)
                     .createdAt(LocalDateTime.now())
+                    .genderType(GenderType.NONE)
                     .build();
         } else if(registrationId.equals("naver")){
-            Map<String, Object> response = (Map<String, Object>)attributes.get("response");
             account = Account.builder()
-                    .email((String)response.get("email"))
-                    .name((String)response.get("name"))
+                    .email((String)attributes.get("email"))
+                    .name((String)attributes.get("name"))
                     .accountType(AccountType.NAVER)
+                    .genderType(GenderType.NONE)
                     .createdAt(LocalDateTime.now())
                     .build();
         }

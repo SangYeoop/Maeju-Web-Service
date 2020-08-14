@@ -2,8 +2,6 @@ package com.foodwebservice.account;
 
 import lombok.Builder;
 import lombok.Getter;
-import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
-
 import java.util.Map;
 
 @Getter
