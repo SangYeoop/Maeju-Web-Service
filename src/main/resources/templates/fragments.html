@@ -35,7 +35,7 @@
     </a>
 
     <form class="form-inline my-2 my-lg-0" th:action="@{'/search'}" th:method="get">
-        <input class="form-control mr-sm-2" name="foodName" type="search" placeholder="음식 이름" aria-label="음식 이름">
+        <input class="form-control mr-sm-2" th:value="${foodName}" name="foodName" type="search" placeholder="음식 이름" aria-label="음식 이름">
         <button class="btn btn-outline-secondary main-text-color my-2 my-sm-0" type="submit">검색</button>
     </form>
 
