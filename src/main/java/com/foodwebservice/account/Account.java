@@ -3,7 +3,6 @@ package com.foodwebservice.account;
 import com.foodwebservice.account.form.ProfileUpdateForm;
 import com.foodwebservice.account.type.AccountType;
 import com.foodwebservice.account.type.GenderType;
-import com.nimbusds.openid.connect.sdk.claims.Gender;
 import lombok.*;
 
 import javax.persistence.*;

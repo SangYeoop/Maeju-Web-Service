@@ -17,5 +17,6 @@ public enum Kind {
     BREAD, //빵
     SNACK, //과자
     BEVERAGE, //음료
-    ETC //기타
+    ETC; //기타
+
 }

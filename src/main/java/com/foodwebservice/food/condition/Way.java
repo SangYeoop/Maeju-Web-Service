@@ -14,5 +14,5 @@ public enum Way {
     ROAST, //굽다
     BOIL_SLIGHTLY, //데치다
     SLICE_FISH, //회
-    ETC // 기타
+    ETC; // 기타
 }

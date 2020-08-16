@@ -14,5 +14,7 @@ public enum Situation {
     HANGOVER, // 숙취해소
     HOLIDAY, // 명절
     BABY, //이유식
-    ETC //기타
+    ETC; //기타
+
+
 }
