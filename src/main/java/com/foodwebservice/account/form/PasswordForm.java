@@ -1,8 +1,6 @@
 package com.foodwebservice.account.form;
 
 import lombok.Data;
-import org.springframework.stereotype.Component;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
