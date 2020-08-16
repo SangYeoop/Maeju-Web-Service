@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments.html :: main-head"></div>
+<body>
+<div th:replace="fragments.html :: main-nav"></div>
+
+<div class="jumbotron">
+    <div class="container">
+        <h1 class="display-4">404 Error</h1>
+        <br/>
+        <p class="lead">이 페이지는 오류 페이지 입니다.</p>
+        <hr class="my-4">
+        <a class="btn btn-primary btn-lg" th:href="@{'/'}" role="button">첫 페이지로 돌아가기</a>
+    </div>
+</div>
+
+
+<div th:replace="fragments.html :: main-footer"></div>
+</body>
+</html>
