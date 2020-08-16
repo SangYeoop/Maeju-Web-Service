@@ -2,12 +2,22 @@ package com.foodwebservice.main;
 
 import com.foodwebservice.account.Account;
 import com.foodwebservice.account.CurrentAccount;
+import com.foodwebservice.food.Food;
+import com.foodwebservice.food.FoodService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.List;
+
+@RequiredArgsConstructor
 @Controller
 public class MainController {
+
+    private final FoodService foodService;
 
     @GetMapping("/")
     public String indexView(@CurrentAccount Account account) {
@@ -24,8 +34,9 @@ public class MainController {
 
 
     @GetMapping("/search")
-    public String searchView(String foodName, Model model) {
-        //Food DB 조회후 Food Name에 해당하는 Value 반환.
+    public String searchView(@PageableDefault(size = 6) Pageable pageable, String foodName, Model model) {
+        List<Food> foods = foodService.findByKeyword(foodName, pageable);
+        model.addAttribute("foods", foods);
         model.addAttribute("foodName", foodName);
         return "search";
     }
