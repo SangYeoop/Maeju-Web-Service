@@ -19,6 +19,9 @@ public class Food {
     @Column(nullable = false, length = 50)
     private String name;
 
+    @Column(length = 255)
+    private String ingredient;
+
     @Lob
     private String recipe;
 

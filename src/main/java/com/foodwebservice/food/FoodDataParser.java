@@ -13,7 +13,7 @@ public class FoodDataParser {
         food.setAmount(datas[1]);
         food.setTime(datas[2]);
         food.setDifficulty(Difficulty.getInstanceAsString(datas[3]));
-        food.setRecipe(datas[4]);
+        food.setIngredient(datas[4]);
         return food;
     }
 }
