@@ -26,15 +26,11 @@ public class FoodService {
         FoodDataParser foodDataParser = new FoodDataParser();
 
         if(foodRepository.count() == 0){
-            Resource resource = new ClassPathResource("csv/food_data.csv");
-
-            List<String> list = List.of(Arrays.toString(resource.getInputStream().readAllBytes()).split("\n"));
-            List<Food> foods = list.stream().map(foodDataParser::getFoodAsString).collect(Collectors.toList());
-            foodRepository.saveAll(foods);
-//            List<Food> foodList = Files.readAllLines(resource.getFile().toPath(), StandardCharsets.UTF_8).stream()
-//                    .map(foodDataParser::getFoodAsString).collect(Collectors.toList());
-//
-//            foodRepository.saveAll(foodList);
+            ClassPathResource resource = new ClassPathResource("csv/food_data.csv");
+            String data = new String(resource.getInputStream().readAllBytes());
+            List<String> datas = List.of(data.split("\n"));
+            List<Food> foodList = datas.stream().map(foodDataParser::getFoodAsString).collect(Collectors.toList());
+            foodRepository.saveAll(foodList);
         }
     }
 
