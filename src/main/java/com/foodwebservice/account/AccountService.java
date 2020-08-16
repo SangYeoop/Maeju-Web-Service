@@ -65,6 +65,11 @@ public class AccountService implements UserDetailsService, OAuth2UserService<OAu
         login(accountRepository.save(account));
     }
 
+    public void delete(Account account) {
+        logout(account);
+        accountRepository.delete(account);
+    }
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Account account = accountRepository.findByEmail(email)
@@ -100,6 +105,10 @@ public class AccountService implements UserDetailsService, OAuth2UserService<OAu
                 new UsernamePasswordAuthenticationToken(
                         new LocalAccount(account), account.getPassword(), List.of(new SimpleGrantedAuthority("ROLE_USER")));
         SecurityContextHolder.getContext().setAuthentication(token);
+    }
+
+    private void logout(Account account){
+        SecurityContextHolder.getContext().setAuthentication(null);
     }
 
     private Account saveOrUpdate(String registrationId, Map<String, Object> attributes) throws OAuth2AuthenticationException{

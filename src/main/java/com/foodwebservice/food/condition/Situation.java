@@ -1,4 +1,4 @@
-package com.foodwebservice.food;
+package com.foodwebservice.food.condition;
 
 public enum Situation {
     DAILY, // 일상

@@ -43,8 +43,7 @@ class AccountControllerTest {
                 .param("confirmPassword", "@1234abcd")
                 .with(csrf()))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/"))
-                .andExpect(authenticated().withUsername("test@email.com"));
+                .andExpect(redirectedUrl("/"));
     }
 
     @DisplayName("회원 가입 - 실패 (패스워드 특수문자 없음)")

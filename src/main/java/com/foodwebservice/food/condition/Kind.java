@@ -1,4 +1,4 @@
-package com.foodwebservice.food;
+package com.foodwebservice.food.condition;
 
 public enum Kind {
     SIDE, //사이드 메뉴

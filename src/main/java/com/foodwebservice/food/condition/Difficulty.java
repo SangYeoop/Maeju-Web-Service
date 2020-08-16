@@ -1,4 +1,4 @@
-package com.foodwebservice.food;
+package com.foodwebservice.food.condition;
 
 public enum Difficulty {
     ANYONE, //아무나 

@@ -33,6 +33,12 @@
     <a class="navbar-brand" th:href="@{'/'}">
         <h3 style="color: chocolate"><i class="fas fa-seedling fa"></i>Maeju</h3>
     </a>
+
+    <form class="form-inline my-2 my-lg-0" th:action="@{'/search'}" th:method="get">
+        <input class="form-control mr-sm-2" name="foodName" type="search" placeholder="음식 이름" aria-label="음식 이름">
+        <button class="btn btn-outline-secondary main-text-color my-2 my-sm-0" type="submit">검색</button>
+    </form>
+
     <div sec:authorize="!isAuthenticated()" class="d-flex flex-row-reverse">
         <h5><a class="nav-link p-2 font-weight-bold main-text-color" th:href="@{'/login'}">로그인</a></h5>
         <h5><a class="nav-link p-2 font-weight-bold main-text-color" th:href="@{'/sign-up'}">회원가입</a></h5>
@@ -62,7 +68,7 @@
 
 <footer th:fragment="main-footer" class="bg-light page-footer">
     <div class="row justify-content-center">
-        <h5>2020 Innovation Hackaton</h5>
+        <h5>2020 전남대학교 Innovation Hackaton</h5>
     </div>
 </footer>
 

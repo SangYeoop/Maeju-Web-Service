@@ -6,10 +6,12 @@ import com.foodwebservice.account.type.AccountType;
 import com.foodwebservice.account.validator.PasswordFormValidator;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -75,5 +77,12 @@ public class AccountSettingsController {
     public String settingsAccountView(@CurrentAccount Account account, Model model){
         model.addAttribute(account);
         return "settings/account";
+    }
+
+    @PostMapping("/settings/account")
+    public String deleteAccount(@CurrentAccount Account account, RedirectAttributes redirectAttributes){
+        redirectAttributes.addAttribute("message", "계정이 성공적으로 삭제되었습니다.");
+        accountService.delete(account);
+        return "redirect:/";
     }
 }

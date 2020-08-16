@@ -1,5 +1,8 @@
 package com.foodwebservice.food;
 
+import com.foodwebservice.food.condition.Kind;
+import com.foodwebservice.food.condition.Situation;
+import com.foodwebservice.food.condition.Way;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
