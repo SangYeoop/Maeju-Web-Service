@@ -1,7 +1,11 @@
 package com.foodwebservice.food;
 
 import com.foodwebservice.food.condition.Difficulty;
+import lombok.NoArgsConstructor;
 
+import java.util.List;
+
+@NoArgsConstructor
 public class FoodDataParser {
 
     public Food getFoodAsString(String foodData){
@@ -15,5 +19,10 @@ public class FoodDataParser {
         food.setDifficulty(Difficulty.getInstanceAsString(datas[3]));
         food.setIngredient(datas[4]);
         return food;
+    }
+
+
+    public List<String> getIngredientListAsString(String ingredients){
+        return List.of(ingredients.split("/"));
     }
 }

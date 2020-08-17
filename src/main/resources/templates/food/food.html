@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments.html :: main-head"></div>
+<body>
+<div th:replace="fragments.html :: main-nav"></div>
+
+<div class="container mt-5" th:object="${food}">
+    <div class="row">
+        <div class="col-sm-9">
+            <h2 class="font-weight-bold main-text-color" th:text="${food.name}"></h2>
+            <span class="badge badge-primary">종류별</span>
+            <span class="badge badge-secondary">방법별</span>
+            <span class="badge badge-success">상황별</span>
+        </div>
+        <div class="col-sm-3">
+            <form th:method="post" th:action="@{'/food/' + ${food.id} + '/likefood'}">
+                <button class="btn btn-outline-primary">선호음식 등록</button>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-8">
+            <hr/>
+            <h4>재료</h4>
+            <p class="text-justify" th:text="${food.ingredient}">
+            </p>
+            <hr/>
+            <h4>조리법</h4>
+            <p class="text-justify">
+                조리법 데이터가 없네요? 빨리만드세여;
+            </p>
+        </div>
+        <div class="col-sm-4">
+            <img th:src="${'/images/food-image-example.png'}" class="card-img-right" width="300" height="300">
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-sm-4">
+            <i class="fas fa-user fa-lg text-primary"><span th:text="${food.getAmount()}"></span></i>
+        </div>
+        <div class="col-sm-4">
+            <i class="fas fa-star fa-lg text-secondary"><span th:text="${food.getDifficulty()}"></span></i>
+        </div>
+        <div class="col-sm-4">
+            <i class="fas fa-clock fa-lg text-success"><span th:text="${food.getTime()}"></span></i>
+        </div>
+    </div>
+    <div th:replace="fragments.html :: message"></div>
+</div>
+
+<div th:replace="fragments.html :: main-footer"></div>
+</body>
+</html>

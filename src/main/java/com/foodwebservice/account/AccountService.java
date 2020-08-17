@@ -8,6 +8,7 @@ import com.foodwebservice.account.type.AccountType;
 import com.foodwebservice.account.type.GenderType;
 import com.foodwebservice.account.type.LocalAccount;
 import com.foodwebservice.account.type.OAuth2Account;
+import com.foodwebservice.food.Food;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Profile;
@@ -27,6 +28,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.swing.text.html.Option;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -45,15 +47,23 @@ public class AccountService implements UserDetailsService, OAuth2UserService<OAu
 
     @Transactional
     public Account updateProfile(Account account, ProfileUpdateForm profileUpdateForm){
-        account.update(profileUpdateForm);
-        return accountRepository.save(account);
+        return accountRepository.findById(account.getId()).orElseThrow(IllegalAccessError::new)
+                .update(profileUpdateForm);
     }
 
     @Transactional
     public Account updatePassword(Account account, String password) {
-        account.updatePassword(passwordEncoder.encode(password));
-        return accountRepository.save(account);
+        return accountRepository.findById(account.getId()).orElseThrow(IllegalAccessError::new)
+                .updatePassword(passwordEncoder.encode(password));
     }
+
+
+    @Transactional
+    public void addLikeFood(Account account, Food food){
+        accountRepository.findById(account.getId()).orElseThrow(IllegalAccessError::new)
+                .addLikeFood(food);
+    }
+
 
     @Transactional
     public void makeAccount(SignUpForm signUpForm, AccountType accountType){

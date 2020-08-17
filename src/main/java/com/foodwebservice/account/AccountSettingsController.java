@@ -4,6 +4,7 @@ import com.foodwebservice.account.form.PasswordForm;
 import com.foodwebservice.account.form.ProfileUpdateForm;
 import com.foodwebservice.account.type.AccountType;
 import com.foodwebservice.account.validator.PasswordFormValidator;
+import com.foodwebservice.food.Food;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.parameters.P;
@@ -18,6 +19,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Controller
@@ -25,6 +29,7 @@ public class AccountSettingsController {
 
     private final ModelMapper modelMapper;
     private final AccountService accountService;
+    private final AccountRepository accountRepository;
 
     @InitBinder("passwordForm")
     public void passwordFormInitBinder(WebDataBinder webDataBinder){
@@ -47,7 +52,9 @@ public class AccountSettingsController {
 
     @GetMapping("/settings/likefood")
     public String settingsLikeFoodView(@CurrentAccount Account account, Model model){
-        model.addAttribute(account);
+        Account foodViewAccount = accountRepository.findById(account.getId()).orElseThrow(IllegalArgumentException::new);
+        model.addAttribute(foodViewAccount);
+        model.addAttribute("foods", new ArrayList<>(foodViewAccount.getLikeFoods()));
         return "settings/like-food";
     }
 

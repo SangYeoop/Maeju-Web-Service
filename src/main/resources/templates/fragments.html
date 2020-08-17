@@ -79,11 +79,10 @@
     <a class="list-group-item list-group-item-action list-group-item-danger" th:classappend="${currentMenu == 'account'}" th:href="@{'/settings/account'}">계정 관리</a>
 </div>
 
-<div th:fragment="message" th:if="${message}" class="alert alert-info alert-dismissible fad show mt-3" role="alert">
+<div th:fragment="message" th:if="${message}" class="alert alert-info alert-dismissible fade show mt-3" role="alert">
     <span th:text="${message}">메시지</span>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true"></span>
+        <span aria-hidden="true">&times;</span>
     </button>
 </div>
-
 </html>

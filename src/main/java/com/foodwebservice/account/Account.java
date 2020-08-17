@@ -3,10 +3,13 @@ package com.foodwebservice.account;
 import com.foodwebservice.account.form.ProfileUpdateForm;
 import com.foodwebservice.account.type.AccountType;
 import com.foodwebservice.account.type.GenderType;
+import com.foodwebservice.food.Food;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter @Setter @EqualsAndHashCode(of = "id")
@@ -31,6 +34,9 @@ public class Account {
 
     private LocalDateTime createdAt;
 
+    @ManyToMany
+    private Set<Food> likeFoods = new HashSet<>();
+
     private boolean existDietType;
 
     public Account update(ProfileUpdateForm profileUpdateForm) {
@@ -40,7 +46,16 @@ public class Account {
         return this;
     }
 
-    public void updatePassword(String password) {
+    public Account updatePassword(String password) {
         this.password = password;
+        return this;
+    }
+
+    public void addLikeFood(Food food) {
+        this.likeFoods.add(food);
+    }
+
+    public void removeLikeFood(Food food) {
+        this.likeFoods.remove(food);
     }
 }
