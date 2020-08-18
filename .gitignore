@@ -35,6 +35,8 @@ out/
 
 src/main/java/com/foodwebservice/food/QFood.java
 src/main/java/com/foodwebservice/account/QAccount.java
+src/main/java/com/foodwebservice/food_ingredient/QFoodIngredient.java
+src/main/java/com/foodwebservice/Ingredient/QIngredient.java
 
 ### Node modules ###
 /src/main/resources/static/node_modules/

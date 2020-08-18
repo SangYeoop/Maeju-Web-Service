@@ -4,9 +4,12 @@ import com.foodwebservice.food.condition.Difficulty;
 import com.foodwebservice.food.condition.Kind;
 import com.foodwebservice.food.condition.Situation;
 import com.foodwebservice.food.condition.Way;
+import com.foodwebservice.food_ingredient.FoodIngredient;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @EqualsAndHashCode(of = "id") @Setter @Getter
@@ -14,6 +17,7 @@ import javax.persistence.*;
 public class Food {
 
     @Id @GeneratedValue
+    @Column(name = "FOOD_ID")
     private Long id;
 
     @Column(nullable = false, length = 50)
@@ -46,5 +50,8 @@ public class Food {
     @Column(nullable = true)
     @Enumerated(EnumType.STRING)
     private Difficulty difficulty;
+
+    @OneToMany(mappedBy = "food")
+    private Set<FoodIngredient> foodIngredients = new HashSet<>();
 
 }
