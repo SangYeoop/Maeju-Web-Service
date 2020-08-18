@@ -137,24 +137,16 @@ public class AccountService implements UserDetailsService, OAuth2UserService<OAu
     }
 
     private Account makeOAuthAccount(String registrationId, Map<String, Object> attributes){
-        Account account;
+        Account account = new Account();
+        account.setEmail((String)attributes.get("email"));
+        account.setName((String)attributes.get("name"));
+        account.setCreatedAt(LocalDateTime.now());
+        account.setGenderType(GenderType.NONE);
 
         if(registrationId.equals("google")){
-            account = Account.builder()
-                    .email((String)attributes.get("email"))
-                    .name((String)attributes.get("name"))
-                    .accountType(AccountType.GOOGLE)
-                    .createdAt(LocalDateTime.now())
-                    .genderType(GenderType.NONE)
-                    .build();
+            account.setAccountType(AccountType.GOOGLE);
         } else if(registrationId.equals("naver")){
-            account = Account.builder()
-                    .email((String)attributes.get("email"))
-                    .name((String)attributes.get("name"))
-                    .accountType(AccountType.NAVER)
-                    .genderType(GenderType.NONE)
-                    .createdAt(LocalDateTime.now())
-                    .build();
+            account.setAccountType(AccountType.NAVER);
         }
         else
             throw new RuntimeException();

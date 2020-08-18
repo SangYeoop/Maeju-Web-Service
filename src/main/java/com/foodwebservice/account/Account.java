@@ -13,7 +13,7 @@ import java.util.Set;
 
 @Entity
 @Getter @Setter @EqualsAndHashCode(of = "id")
-@AllArgsConstructor @NoArgsConstructor @Builder
+@AllArgsConstructor @NoArgsConstructor
 public class Account {
 
     @Id @GeneratedValue

@@ -17,7 +17,7 @@ import java.util.Set;
 public class Food {
 
     @Id @GeneratedValue
-    @Column(name = "FOOD_ID")
+    @Column(name = "food_id")
     private Long id;
 
     @Column(nullable = false, length = 50)

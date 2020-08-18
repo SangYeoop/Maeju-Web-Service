@@ -13,7 +13,7 @@ import java.util.Set;
 public class Ingredient {
 
     @Id @GeneratedValue
-    @Column(name = "INGREDIENT_ID")
+    @Column(name = "ingredent_id")
     public Long id;
 
     @Column(unique = true)
