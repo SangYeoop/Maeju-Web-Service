@@ -1,7 +1,5 @@
 package com.foodwebservice.account;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.foodwebservice.account.exception.NotMakeAccountException;
 import com.foodwebservice.account.form.ProfileUpdateForm;
 import com.foodwebservice.account.form.SignUpForm;
 import com.foodwebservice.account.type.AccountType;
@@ -11,7 +9,6 @@ import com.foodwebservice.account.type.OAuth2Account;
 import com.foodwebservice.food.Food;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.context.annotation.Profile;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,7 +25,6 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.swing.text.html.Option;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -43,6 +39,11 @@ public class AccountService implements UserDetailsService, OAuth2UserService<OAu
 
     public boolean isEqualPassword(Account account, String password){
         return passwordEncoder.matches(password, account.getPassword());
+    }
+
+    @Transactional(readOnly = true)
+    public Account findById(Long id) {
+        return accountRepository.findById(id).orElseThrow(() -> new IllegalArgumentException(id + "에 해당하는 유저가 없습니다."));
     }
 
     @Transactional
@@ -60,10 +61,15 @@ public class AccountService implements UserDetailsService, OAuth2UserService<OAu
 
     @Transactional
     public void addLikeFood(Account account, Food food){
-        accountRepository.findById(account.getId()).orElseThrow(IllegalAccessError::new)
+        accountRepository.findById(account.getId()).orElseThrow(IllegalArgumentException::new)
                 .addLikeFood(food);
     }
 
+    @Transactional
+    public void removeLikeFood(Account account, Food food) {
+        accountRepository.findById(account.getId()).orElseThrow(IllegalArgumentException::new)
+                .removeLikeFood(food);
+    }
 
     @Transactional
     public void makeAccount(SignUpForm signUpForm, AccountType accountType){
@@ -155,5 +161,4 @@ public class AccountService implements UserDetailsService, OAuth2UserService<OAu
 
         return accountRepository.save(account);
     }
-
 }

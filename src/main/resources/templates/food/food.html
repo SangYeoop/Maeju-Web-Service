@@ -13,8 +13,11 @@
             <span class="badge badge-success">상황별</span>
         </div>
         <div class="col-sm-3">
-            <form th:method="post" th:action="@{'/food/' + ${food.id} + '/likefood'}">
+            <form th:if="${!account.getLikeFoods().contains(food)}" th:method="post" th:action="@{'/food/' + ${food.id} + '/likefood'}">
                 <button class="btn btn-outline-primary">선호음식 등록</button>
+            </form>
+            <form th:if="${account.getLikeFoods().contains(food)}" th:method="post" th:action="@{'/food/' + ${food.id} + '/removefood'}">
+                <button class="btn btn-outline-warning">선호음식 삭제</button>
             </form>
         </div>
     </div>

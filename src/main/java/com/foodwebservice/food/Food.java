@@ -54,4 +54,9 @@ public class Food {
     @OneToMany(mappedBy = "food")
     private Set<FoodIngredient> foodIngredients = new HashSet<>();
 
+
+    public void addFoodIngredient(FoodIngredient foodIngredient){
+        this.foodIngredients.add(foodIngredient);
+    }
+
 }

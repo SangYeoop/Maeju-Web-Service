@@ -3,7 +3,7 @@ package com.foodwebservice.food;
 import com.foodwebservice.account.Account;
 import com.foodwebservice.account.AccountService;
 import com.foodwebservice.account.CurrentAccount;
-import com.foodwebservice.food.dto.FoodDto;
+import com.foodwebservice.parser.FoodDataParser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,18 +21,27 @@ public class FoodController {
     private final AccountService accountService;
 
     @GetMapping("/food/{foodId}")
-    public String foodView(@PathVariable Long foodId, Model model) {
+    public String foodView(@CurrentAccount Account account, @PathVariable Long foodId, Model model) {
         Food food = foodService.findById(foodId);
+        if(account != null)
+            model.addAttribute(accountService.findById(account.getId()));
         model.addAttribute("food", food);
-        model.addAttribute("ingredients", foodDataParser.getIngredientListAsString(food.getIngredient()));
         return "food/food";
     }
 
     @PostMapping("/food/{foodId}/likefood")
-    public String likeFoodRegister(@CurrentAccount Account account, @PathVariable Long foodId, RedirectAttributes redirectAttributes){
+    public String addLikeFood(@CurrentAccount Account account, @PathVariable Long foodId, RedirectAttributes redirectAttributes){
         Food food = foodService.findById(foodId);
         accountService.addLikeFood(account, food);
         redirectAttributes.addFlashAttribute("message", "선호음식이 성공적으로 등록되었습니다.");
+        return "redirect:/food/" + food.getId();
+    }
+
+    @PostMapping("/food/{foodId}/removefood")
+    public String removeLikeFood(@CurrentAccount Account account, @PathVariable Long foodId, RedirectAttributes redirectAttributes){
+        Food food = foodService.findById(foodId);
+        accountService.removeLikeFood(account, food);
+        redirectAttributes.addFlashAttribute("message", "선호음식이 성공적으로 삭제되었습니다.");
         return "redirect:/food/" + food.getId();
     }
 

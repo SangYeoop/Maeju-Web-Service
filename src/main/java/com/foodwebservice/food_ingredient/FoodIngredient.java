@@ -22,5 +22,6 @@ public class FoodIngredient {
     @JoinColumn(name = "INGREDIENT_ID")
     private Ingredient ingredient;
 
+    @Column(nullable = true)
     private String amount;
 }

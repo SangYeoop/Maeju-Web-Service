@@ -19,4 +19,41 @@ public enum Kind {
     BEVERAGE, //음료
     ETC; //기타
 
+    public static Kind getInstanceAsString(String kind){
+        if(kind.equals("밑반찬"))
+            return SIDE;
+        else if(kind.equals("메인반찬"))
+            return MAIN;
+        else if(kind.equals("국/탕"))
+            return SOUP;
+        else if(kind.equals("찌개"))
+            return STEW;
+        else if(kind.equals("디저트"))
+            return DESERT;
+        else if(kind.equals("면/만두"))
+            return NOODLE;
+        else if(kind.equals("밥/죽/떡"))
+            return RICE;
+        else if(kind.equals("퓨전"))
+            return FUSION;
+        else if(kind.equals("김치/젓갈/장류"))
+            return KIMCHI;
+        else if(kind.equals("양념/소스/잼"))
+            return SAUCE;
+        else if(kind.equals("양식"))
+            return WESTERN;
+        else if(kind.equals("샐러드"))
+            return SALAD;
+        else if(kind.equals("스프"))
+            return WESTERN_SOUP;
+        else if(kind.equals("빵"))
+            return BREAD;
+        else if(kind.equals("과자"))
+            return SNACK;
+        else if(kind.equals("차/음료/술"))
+            return BEVERAGE;
+        else
+            return ETC;
+    }
+
 }

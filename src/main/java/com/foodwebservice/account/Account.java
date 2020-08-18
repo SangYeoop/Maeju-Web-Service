@@ -56,6 +56,8 @@ public class Account {
     }
 
     public void removeLikeFood(Food food) {
+        if(!this.likeFoods.contains(food))
+            throw new IllegalArgumentException();
         this.likeFoods.remove(food);
     }
 }
