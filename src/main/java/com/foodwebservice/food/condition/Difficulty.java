@@ -18,4 +18,19 @@ public enum Difficulty {
 
         return null;
     }
+
+
+    public String getStringAsValue() {
+        if(this.equals(ANYONE))
+            return "아무나";
+        else if(this.equals(EASY))
+            return "초급";
+        else if(this.equals(NORMAL))
+            return "중급";
+        else if(this.equals(HARD))
+            return "고급";
+        else
+            return "해당 없음";
+    }
+
 }
