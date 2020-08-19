@@ -8,9 +8,9 @@
     <div class="row">
         <div class="col-sm-9">
             <h2 class="font-weight-bold main-text-color" th:text="${food.name}"></h2>
-            <span class="badge badge-primary" th:text="${food.getKind()}">종류별</span>
-            <span class="badge badge-secondary" th:text="${food.getWay()}">방법별</span>
-            <span class="badge badge-success" th:text="${food.getSituation()}">상황별</span>
+            <span class="badge badge-primary" th:text="${food.getKind().getStringAsInstance()}">종류별</span>
+            <span class="badge badge-secondary" th:text="${food.getWay().getStringAsInstance()}">방법별</span>
+            <span class="badge badge-success" th:text="${food.getSituation().getStringAsInstance()}">상황별</span>
         </div>
         <div class="col-sm-3" th:if="${account != null}">
             <form th:if="${!account.getLikeFoods().contains(food)}" th:method="post" th:action="@{'/food/' + ${food.id} + '/likefood'}">
@@ -25,13 +25,18 @@
         <div class="col-sm-8">
             <hr/>
             <h4>재료</h4>
-            <p class="text-justify" th:text="${food.ingredient}">
+            <div class="row ml-3">
+                <div class="col-sm-6" th:each="ingredient : ${ingredients}">
+                    <span class="text-justify font-weight-bold" th:text="${ingredient.getIngredientName()}"></span>
+                    <span class="badge badge-light" th:text="${ingredient.getIngredientType().getStringAsInstance()}"></span>
+                    <span class="text-justify text-muted" th:text="${ingredient.getAmount()}"></span>
+                </div>
+            </div>
             </p>
             <hr/>
             <h4>조리법</h4>
-            <p class="text-justify" th:text="${food.recipe}">
-                조리법 데이터가 없네요? 빨리만드세여;
-            </p>
+            <h6 class="ml-3" th:each="recipe : ${recipes}" th:utext="${recipe}">
+            </h6>
         </div>
         <div class="col-sm-4">
             <img th:src="${'/images/food-image-example.png'}" class="card-img-right" width="300" height="300">

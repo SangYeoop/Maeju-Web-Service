@@ -3,7 +3,7 @@ package com.foodwebservice.food;
 import com.foodwebservice.account.Account;
 import com.foodwebservice.account.AccountService;
 import com.foodwebservice.account.CurrentAccount;
-import com.foodwebservice.parser.FoodDataParser;
+import com.foodwebservice.food_ingredient.FoodIngredientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,12 +12,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Controller
 public class FoodController {
 
-    private final FoodDataParser foodDataParser;
     private final FoodService foodService;
+    private final FoodIngredientService foodIngredientService;
     private final AccountService accountService;
 
     @GetMapping("/food/{foodId}")
@@ -25,7 +27,10 @@ public class FoodController {
         Food food = foodService.findById(foodId);
         if(account != null)
             model.addAttribute(accountService.findById(account.getId()));
+
         model.addAttribute("food", food);
+        model.addAttribute("ingredients", foodIngredientService.findAllIngredientsAndAmountByFood(food));
+        model.addAttribute("recipes", List.of(food.getRecipe().split("%")));
         return "food/food";
     }
 

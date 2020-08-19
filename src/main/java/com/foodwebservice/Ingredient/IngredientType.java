@@ -1,5 +1,7 @@
 package com.foodwebservice.Ingredient;
 
+import net.bytebuddy.asm.Advice;
+
 public enum IngredientType {
     MEAT, //육류
     VEGETABLE, //채소류
@@ -15,6 +17,34 @@ public enum IngredientType {
     GRAIN, // 곡류
     ETC; // 기타
 
+    public String getStringAsInstance(){
+        if(this.equals(MEAT))
+            return "육류";
+        else if(this.equals(VEGETABLE))
+            return "채소류";
+        else if(this.equals(SEAFOOD))
+            return "해물류";
+        else if(this.equals(DAIRY))
+            return "달걀/유제품";
+        else if(this.equals(PROCESSED))
+            return "가공 식품";
+        else if(this.equals(RICE))
+            return "쌀";
+        else if(this.equals(FLOUR))
+            return "밀가루";
+        else if(this.equals(DRIED_FISH))
+            return "건어물류";
+        else if(this.equals(MUSHROOM))
+            return "버섯류";
+        else if(this.equals(FRUIT))
+            return "과일류";
+        else if(this.equals(NUTS))
+            return "견과류";
+        else if(this.equals(GRAIN))
+            return "곡류";
+        else
+            return "기타";
+    }
 
     public static IngredientType getInstanceAsString(String type){
         if(type.equals("소고기") || type.equals("돼지고기") || type.equals("닭고기") || type.equals("육류"))

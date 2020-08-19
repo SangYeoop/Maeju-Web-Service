@@ -23,8 +23,8 @@ public class FoodDataParser {
         food.setDifficulty(Difficulty.getInstanceAsString(datas[3]));
         food.setImagePath(datas[4]);
         food.setKind(Kind.getInstanceAsString(datas[5]));
-        food.setSituation(Situation.getInstanceAsString(datas[6]));
-        food.setWay(Way.getInstanceAsString(datas[7]));
+        food.setWay(Way.getInstanceAsString(datas[6]));
+        food.setSituation(Situation.getInstanceAsString(datas[7]));
         food.setIngredient(datas[8]);
         food.setRecipe(datas[9]);
         return food;

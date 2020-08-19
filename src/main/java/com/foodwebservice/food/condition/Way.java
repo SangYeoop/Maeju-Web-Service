@@ -16,6 +16,37 @@ public enum Way {
     SLICE_FISH, //회
     ETC; // 기타
 
+    public String getStringAsInstance(){
+        if(this.equals(FRY))
+            return "볶음";
+        else if(this.equals(SIMMER))
+            return "끓이기";
+        else if(this.equals(PAN_FRY))
+            return "부침";
+        else if(this.equals(COOK))
+            return "조림";
+        else if(this.equals(SEASONING))
+            return "무침";
+        else if(this.equals(MIX))
+            return "비빔";
+        else if(this.equals(STEAM))
+            return "찜";
+        else if(this.equals(PICKLE))
+            return "절임";
+        else if(this.equals(OIL_FRY))
+            return "튀김";
+        else if(this.equals(BOIL))
+            return "삶기";
+        else if(this.equals(ROAST))
+            return "굽기";
+        else if(this.equals(BOIL_SLIGHTLY))
+            return "데치기";
+        else if(this.equals(SLICE_FISH))
+            return "회";
+        else
+            return "기타";
+    }
+
     public static Way getInstanceAsString(String way){
         if(way.equals("볶음"))
             return FRY;

@@ -1,8 +1,8 @@
 package com.foodwebservice.food.condition;
 
 public enum Kind {
-    SIDE, //사이드 메뉴
-    MAIN, //메인 메뉴
+    SIDE, //밑반찬
+    MAIN, //메인반찬
     SOUP, // 국,탕
     STEW, // 찌개
     DESERT, //디저트
@@ -18,6 +18,43 @@ public enum Kind {
     SNACK, //과자
     BEVERAGE, //음료
     ETC; //기타
+
+    public String getStringAsInstance(){
+        if(this.equals(SIDE))
+            return "밑반찬";
+        else if(this.equals(MAIN))
+            return "메인반찬";
+        else if(this.equals(SOUP))
+            return "국/탕";
+        else if(this.equals(STEW))
+            return "찌개";
+        else if(this.equals(DESERT))
+            return "디저트";
+        else if(this.equals(NOODLE))
+            return "면";
+        else if(this.equals(RICE))
+            return "밥,죽,떡";
+        else if(this.equals(FUSION))
+            return "퓨전";
+        else if(this.equals(KIMCHI))
+            return "김치,젓갈,장류";
+        else if(this.equals(SAUCE))
+            return "양념,소스";
+        else if(this.equals(WESTERN))
+            return "양식";
+        else if(this.equals(SALAD))
+            return "샐러드";
+        else if(this.equals(WESTERN_SOUP))
+            return "양식 수프";
+        else if(this.equals(BREAD))
+            return "빵";
+        else if(this.equals(SNACK))
+            return "과자";
+        else if(this.equals(BEVERAGE))
+            return "음료";
+        else
+            return "기타";
+    }
 
     public static Kind getInstanceAsString(String kind){
         if(kind.equals("밑반찬"))

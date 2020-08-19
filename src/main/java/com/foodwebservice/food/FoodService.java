@@ -44,7 +44,7 @@ public class FoodService {
 
     @PostConstruct
     public void initFoodData() throws IOException{
-        ClassPathResource resource = new ClassPathResource("csv/data.csv");
+        ClassPathResource resource = new ClassPathResource("csv/food-data.csv");
         String data = new String(resource.getInputStream().readAllBytes());
         List<String> datas = List.of(data.split("\n"));
 
