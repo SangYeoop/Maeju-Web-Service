@@ -16,9 +16,9 @@ public class DietService {
 
     @Transactional
     public Diet makeDiet(Account account, QuestionForm questionForm){
-        Diet diet = new Diet();
         account = accountService.findById(account.getId());
         account.setExistDietType(true);
+        Diet diet = dietRepository.findByAccount(account).orElse(new Diet());
 
         diet.setPoint(questionForm);
         diet.setAccount(account);

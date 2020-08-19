@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
@@ -52,7 +53,7 @@ public class DietController {
     }
 
     @PostMapping("/diet/type")
-    public String dietTypeRequest(@CurrentAccount Account account, Model model, QuestionForm questionForm, ResponseType responseType, RedirectAttributes redirectAttributes){
+    public String dietTypeRequest(@CurrentAccount Account account, Model model, QuestionForm questionForm, ResponseType responseType, SessionStatus status, RedirectAttributes redirectAttributes){
         int index = questionForm.getIndex();
         if(questionForm.getResponseDtos().size() != index + 1) {
             questionForm.getResponseDtos().get(index).setResponseType(responseType);
@@ -60,6 +61,7 @@ public class DietController {
             return "redirect:/diet/type";
         }
         Diet diet = dietService.makeDiet(account, questionForm);
+        status.setComplete();
         redirectAttributes.addFlashAttribute("message", "당신의 식단 유형은 " + diet.getDietType().getString() + " 입니다.");
         return "redirect:/";
     }

@@ -30,6 +30,7 @@ public class Diet {
     private int reasonablePoint;
 
     public Diet setPoint(QuestionForm questionForm){
+        initPoint();
         questionForm.getResponseDtos().forEach(responseDto -> {
             if(responseDto.getResponseType().equals(ResponseType.POSITIVE)){
                 responseDto.getQuestion().getPositive().forEach(tuple -> {
@@ -71,5 +72,12 @@ public class Diet {
             this.reasonablePoint += value;
         else if(dietType.equals(DietType.SIMPLE))
             this.simplePoint += value;
+    }
+
+    private void initPoint() {
+        this.simplePoint = 0;
+        this.reasonablePoint = 0;
+        this.healthPoint = 0;
+        this.adventurePoint = 0;
     }
 }
