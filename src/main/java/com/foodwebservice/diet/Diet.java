@@ -57,7 +57,7 @@ public class Diet {
         else if(simplePoint >= adventurePoint && simplePoint >= reasonablePoint && simplePoint >= healthPoint)
             this.dietType = DietType.SIMPLE;
         else if(healthPoint >= adventurePoint && healthPoint >= reasonablePoint && healthPoint >= simplePoint)
-            this.dietType = DietType.SIMPLE;
+            this.dietType = DietType.HEALTH;
         else
             this.dietType = DietType.REASONABLE;
         return this;
