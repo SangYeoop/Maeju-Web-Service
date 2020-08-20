@@ -24,6 +24,10 @@ apply plugin: 'io.spring.dependency-management'
 apply plugin: 'com.ewerk.gradle.plugins.querydsl'
 def queryDslSrcDir = 'src/main/java'
 
+bootJar{
+	mainClassName= 'com.foodwebservice.App'
+}
+
 querydsl {
 	jpa = true
 	library = "com.querydsl:querydsl-apt"
