@@ -1,23 +1,23 @@
 package com.foodwebservice.food.condition;
 
 public enum Kind {
-    SIDE, //밑반찬
-    MAIN, //메인반찬
-    SOUP, // 국,탕
+    SIDE, // 밑반찬
+    MAIN, // 메인반찬
+    SOUP, // 국/탕
     STEW, // 찌개
-    DESERT, //디저트
-    NOODLE, //면
-    RICE, // 밥,죽,떡
-    FUSION, //퓨전
-    KIMCHI, //김치,젓갈,장류
-    SAUCE,  //양념,소스
-    WESTERN, //양식
-    WESTERN_SOUP, //양식 스프
-    SALAD, //샐러드
-    BREAD, //빵
-    SNACK, //과자
-    BEVERAGE, //음료
-    ETC; //기타
+    DESERT, // 디저트
+    NOODLE, // 면/만두
+    RICE, // 밥/죽/떡
+    FUSION, // 퓨전
+    KIMCHI, // 김치/젓갈/장류
+    SAUCE,  // 양념/소스/잼
+    WESTERN, // 양식
+    WESTERN_SOUP, // 스프
+    SALAD, // 샐러드
+    BREAD, // 빵
+    SNACK, // 과자
+    BEVERAGE, // 차/음료/술
+    ETC; // 기타
 
     public String getStringAsInstance(){
         if(this.equals(SIDE))
@@ -33,25 +33,25 @@ public enum Kind {
         else if(this.equals(NOODLE))
             return "면";
         else if(this.equals(RICE))
-            return "밥,죽,떡";
+            return "밥/죽/떡";
         else if(this.equals(FUSION))
             return "퓨전";
         else if(this.equals(KIMCHI))
-            return "김치,젓갈,장류";
+            return "김치/젓갈/장류";
         else if(this.equals(SAUCE))
-            return "양념,소스";
+            return "양념/소스/잼";
         else if(this.equals(WESTERN))
             return "양식";
         else if(this.equals(SALAD))
             return "샐러드";
         else if(this.equals(WESTERN_SOUP))
-            return "양식 수프";
+            return "스프";
         else if(this.equals(BREAD))
             return "빵";
         else if(this.equals(SNACK))
             return "과자";
         else if(this.equals(BEVERAGE))
-            return "음료";
+            return "차/음료/술";
         else
             return "기타";
     }

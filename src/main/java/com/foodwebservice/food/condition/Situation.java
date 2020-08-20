@@ -2,7 +2,7 @@ package com.foodwebservice.food.condition;
 
 public enum Situation {
     DAILY, // 일상
-    SPEED, // 스피드
+    SPEED, // 초스피드
     GUEST, // 손님접대
     DIET, // 다이어트
     BAR_SNACK, // 술안주
@@ -10,11 +10,11 @@ public enum Situation {
     NUTRITION, // 영양식
     SNACK, // 간식
     MIDNIGHT, // 야식
-    STYLING, // 푸드 스타일링
-    HANGOVER, // 숙취해소
+    STYLING, // 푸드스타일링
+    HANGOVER, // 해장
     HOLIDAY, // 명절
-    BABY, //이유식
-    ETC; //기타
+    BABY, // 이유식
+    ETC; // 기타
 
     public String getStringAsInstance(){
         if(this.equals(DAILY))
@@ -22,7 +22,7 @@ public enum Situation {
         else if(this.equals(SPEED))
             return "초스피드";
         else if(this.equals(GUEST))
-            return "손님 접대";
+            return "손님접대";
         else if(this.equals(DIET))
             return "다이어트";
         else if(this.equals(BAR_SNACK))
@@ -36,9 +36,9 @@ public enum Situation {
         else if(this.equals(MIDNIGHT))
             return "야식";
         else if(this.equals(STYLING))
-            return "푸드 스타일링";
+            return "푸드스타일링";
         else if(this.equals(HANGOVER))
-            return "숙취 해소";
+            return "해장";
         else if(this.equals(HOLIDAY))
             return "명절";
         else if(this.equals(BABY))
