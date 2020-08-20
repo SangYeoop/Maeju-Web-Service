@@ -3,10 +3,16 @@ package com.foodwebservice.diet;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 public enum  DietType {
-    ADVENTURE, //모험
-    SIMPLE, //간편
-    HEALTH, //건강
-    REASONABLE; //합리
+    ADVENTURE("모험형"), //모험
+    SIMPLE("간편형"), //간편
+    HEALTH("건강형"), //건강
+    REASONABLE("합리형"); //합리
+
+    private String name;
+
+    DietType(String name){
+        this.name = name;
+    }
 
     public static DietType getInstanceAsString(String value) {
         if(value.equals("모험"))
@@ -20,13 +26,6 @@ public enum  DietType {
     }
 
     public String getString() {
-        if(this.equals(ADVENTURE))
-            return "모험형";
-        else if(this.equals(SIMPLE))
-            return "간편형";
-        else if(this.equals(HEALTH))
-            return "건강/안전형";
-        else
-            return "합리형";
+        return name;
     }
 }

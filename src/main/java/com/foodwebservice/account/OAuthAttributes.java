@@ -26,7 +26,6 @@ public class OAuthAttributes {
 
     private static OAuthAttributes ofNaver(Map<String, Object> attributes, String nameAttributeKey){
         Map<String, Object> response = (Map<String, Object>)attributes.get("response");
-
         return OAuthAttributes.builder()
                 .nameAttributeKey(nameAttributeKey)
                 .attributes(response)

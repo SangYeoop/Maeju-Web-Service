@@ -1,7 +1,6 @@
 package com.foodwebservice.diet.survey;
 
 
-import com.foodwebservice.diet.Diet;
 import com.foodwebservice.diet.DietType;
 import com.foodwebservice.parser.Tuple;
 import lombok.Getter;
