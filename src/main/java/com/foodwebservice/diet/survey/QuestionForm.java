@@ -1,4 +1,4 @@
-package com.foodwebservice.diet.form;
+package com.foodwebservice.diet.survey;
 
 import com.foodwebservice.diet.survey.ResponseDto;
 import lombok.Data;

@@ -2,12 +2,10 @@ package com.foodwebservice.diet;
 
 import com.foodwebservice.account.Account;
 import com.foodwebservice.account.CurrentAccount;
-import com.foodwebservice.diet.form.QuestionForm;
-import com.foodwebservice.diet.survey.Question;
+import com.foodwebservice.diet.survey.QuestionForm;
 import com.foodwebservice.diet.survey.QuestionService;
 import com.foodwebservice.diet.survey.ResponseDto;
 import com.foodwebservice.diet.survey.ResponseType;
-import com.foodwebservice.parser.Tuple;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,8 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Collectors;
 
 @SessionAttributes("questionForm")
@@ -31,7 +27,7 @@ public class DietController {
     public QuestionForm questionForm() {
         QuestionForm questionForm = new QuestionForm();
         questionForm.setIndex(0);
-        questionForm.setResponseDtos(questionService.getQuestions().stream().map((question -> {
+        questionForm.setResponseDtos(questionService.getDietTypeQuestions().stream().map((question -> {
             ResponseDto responseDto = new ResponseDto();
             responseDto.setQuestion(question);
             responseDto.setResponseType(ResponseType.NONE);

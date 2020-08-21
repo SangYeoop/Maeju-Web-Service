@@ -1,7 +1,8 @@
 package com.foodwebservice.diet;
 
-import org.springframework.web.servlet.HandlerInterceptor;
+import lombok.Getter;
 
+@Getter
 public enum  DietType {
     ADVENTURE("모험형"), //모험
     SIMPLE("간편형"), //간편
@@ -15,14 +16,11 @@ public enum  DietType {
     }
 
     public static DietType getInstanceAsString(String value) {
-        if(value.equals("모험"))
-            return ADVENTURE;
-        else if(value.equals("간편"))
-            return SIMPLE;
-        else if(value.equals("건강"))
-            return HEALTH;
-        else
-            return REASONABLE;
+        for(DietType dietType : DietType.values()){
+            if(value.equals(dietType.name))
+                return dietType;
+        }
+        return REASONABLE;
     }
 
     public String getString() {

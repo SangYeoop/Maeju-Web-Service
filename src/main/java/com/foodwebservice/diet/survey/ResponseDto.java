@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class ResponseDto {
-    private Question question;
+    private DietTypeQuestion question;
     private ResponseType responseType;
 }

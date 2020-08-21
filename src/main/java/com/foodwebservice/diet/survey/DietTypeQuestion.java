@@ -7,7 +7,7 @@ import lombok.*;
 import java.util.List;
 
 @Data
-public class Question {
+public class DietTypeQuestion {
 
     private String question;
 

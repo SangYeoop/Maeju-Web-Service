@@ -14,7 +14,7 @@ public enum IngredientType {
     DRIED_FISH("건어물류"),
     MUSHROOM("버섯류"),
     FRUIT("과일류"),
-    NUTS("견과류"),
+    NUTS("콩/견과류"),
     GRAIN("곡류"),
     ETC("기타");
 

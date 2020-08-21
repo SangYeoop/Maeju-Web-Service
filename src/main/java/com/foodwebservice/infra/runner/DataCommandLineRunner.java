@@ -29,8 +29,13 @@ public class DataCommandLineRunner implements CommandLineRunner {
     private final FoodRepository foodRepository;
     private final IngredientRepository ingredientRepository;
     private final FoodIngredientRepository foodIngredientRepository;
+
     @Override
     public void run(String... args) throws Exception {
+        initFoodData();
+    }
+
+    private void initFoodData()  throws Exception {
         ClassPathResource resource = new ClassPathResource("csv/food-data.csv");
         String data = new String(resource.getInputStream().readAllBytes());
         List<String> datas = List.of(data.split("\n"));

@@ -19,12 +19,12 @@ import java.util.stream.Collectors;
 @Slf4j
 public class QuestionService {
 
-    private List<Question> questions = new ArrayList<>();
+    private List<DietTypeQuestion> dietTypeQuestions = new ArrayList<>();
 
     @PostConstruct
     public void initQuestion() throws IOException {
-        questions = getQuestionString().stream().map((value) -> {
-            Question question = new Question();
+        dietTypeQuestions = getQuestionString().stream().map((value) -> {
+            DietTypeQuestion question = new DietTypeQuestion();
             String[] strs = value.split(",");
             question.setQuestion(strs[0]);
             question.setPositive(getPointBySurveyAndDietTypeList(strs[1]));
@@ -33,6 +33,7 @@ public class QuestionService {
             return question;
         }).collect(Collectors.toList());
     }
+
 
     private List<String> getQuestionString() throws IOException{
         ClassPathResource resource = new ClassPathResource("text/survey.txt");

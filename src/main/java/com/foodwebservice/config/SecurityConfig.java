@@ -23,7 +23,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception{
         http.authorizeRequests()
                 .mvcMatchers("/", "/login", "/sign-up", "/diet/example", "/search/**").permitAll()
-                .mvcMatchers(HttpMethod.GET, "/food/**").permitAll()
+                .mvcMatchers("/food/type").authenticated()
+                .mvcMatchers(HttpMethod.GET, "/food/{foodId}").permitAll()
                 .anyRequest().authenticated()
                 .and().
                     logout().logoutSuccessUrl("/")
