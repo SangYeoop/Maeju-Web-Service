@@ -14,8 +14,12 @@ cache:
     - '$HOME/.gradle'
 script: "./gradlew build"
 
+
 before_install:
   - chmod +x gradlew
+  - cd src/main/resources/static
+  - npm install
+  - cd ../../../..
 
 before_deploy:
   - mkdir -p before-deploy
