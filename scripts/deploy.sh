@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 
 REPOSITORY=/home/ubuntu/app/step2
 NPM_DIRECTORY=src/main/resources/static
