@@ -30,7 +30,7 @@ echo "> $JAR_NAME 에 실행권한 추가"
 chmod +x $JAR_NAME
 
 echo "> $JAR_NAME 실행"
-java -jar -Dspring.profiles.active=real $REPOSITORY/$JAR_NAME
+java -jar -Dspring.profiles.active=real $JAR_NAME
 
 
 
