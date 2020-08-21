@@ -1,6 +1,6 @@
 #!bin/bash
 
-REPOSITORY=/home/ubuntu/app/step1
+REPOSITORY=/home/ubuntu/app/step2
 NPM_DIRECTORY=src/main/resources/static
 PROJECT_NAME=MaejuWebService
 PACKAGE_NAME=food
