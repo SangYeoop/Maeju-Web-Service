@@ -17,6 +17,22 @@ script: "./gradlew build"
 before_install:
   - chmod +x gradlew
 
+before_deploy:
+  - zip -r food *
+  - mkdir -p deploy
+  - mv food.zip deploy/food.zip
+
+deploy:
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: maeju-webservice-build
+    region: ap-northeast-2
+    skip_cleanup: true
+    acl: private
+    local_dir: deploy
+    wait-until-deployed: true
+
 #CI 실행 완료시 메일
 notifications:
   email:
