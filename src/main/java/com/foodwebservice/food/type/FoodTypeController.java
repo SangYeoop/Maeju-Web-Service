@@ -23,25 +23,31 @@ public class FoodTypeController {
         FoodTypeForm foodTypeForm = new FoodTypeForm();
         foodTypeForm.setFoodsName(foodTypeService.getFoodNames());
         foodTypeForm.setIndex(0);
+        foodTypeForm.setEnd(false);
         return foodTypeForm;
     }
 
     @GetMapping("/food/type")
-    public String foodTypeView(@CurrentAccount Account account, FoodTypeForm foodTypeForm, Model model) {
+    public String foodTypeView(@CurrentAccount Account account, FoodTypeForm foodTypeForm, Model model,
+                               SessionStatus status) {
         model.addAttribute(account);
         model.addAttribute(foodTypeForm);
+        if(foodTypeForm.isEnd()){
+            status.setComplete();
+        }
         return "food/type";
     }
 
     @PostMapping("/food/type")
     public String foodTypeRequest(@CurrentAccount Account account, FoodTypeForm foodTypeForm, Model model,
-                                  String foodName, SessionStatus status, RedirectAttributes redirectAttributes) {
+                                  String foodName, RedirectAttributes redirectAttributes) {
         int index = foodTypeForm.getIndex();
 
         if(foodTypeForm.getFoodsName().get(index).equals(foodName))
             foodTypeForm.getFoodsName().remove(index + 1);
         else
             foodTypeForm.getFoodsName().remove(index);
+
         foodTypeForm.getSelected().add(foodName);
         foodTypeForm.setIndex(index + 1);
 
@@ -50,9 +56,8 @@ public class FoodTypeController {
         }
 
         if(foodTypeForm.getFoodsName().size() == 1) {
-            status.setComplete();
-            redirectAttributes.addFlashAttribute("message", "음식 유형 분석을 완료했습니다.");
-            return "redirect:/";
+            foodTypeForm.setEnd(true);
+            return "redirect:/food/type";
         }
 
         return "redirect:/food/type";

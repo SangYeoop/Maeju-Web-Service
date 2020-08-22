@@ -9,6 +9,6 @@ import java.util.List;
 public class FoodTypeForm {
     List<String> foodsName = new ArrayList<>();
     List<String> selected = new ArrayList<>();
-
     int index;
+    boolean isEnd;
 }
