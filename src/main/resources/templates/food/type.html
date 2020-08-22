@@ -5,11 +5,25 @@
 <div th:replace="fragments.html :: main-nav"></div>
 <div class="container mt-5">
     <h3 class="font-weight-bold main-text-color">음식 유형 정하기</h3>
-
+    <br/>
     <form th:action="@{'/food/type'}" th:method="post">
-        <input type="submit" name="foodName" class="btn btn-secondary" th:value="${foodTypeForm.getFoodsName().get(foodTypeForm.getIndex())}"/>
-
-        <input type="submit" name="foodName" class="btn btn-secondary" th:value="${foodTypeForm.getFoodsName().get(foodTypeForm.getIndex()+ 1)}"/>
+        <div class="row justify-content-center">
+            <div class="col-sm-6">
+                <img th:src="@{'/images/food-type/' + ${foodTypeForm.getFoodsName().get(foodTypeForm.getIndex())} + '.jpg'}" width="500" height="350"/>
+            </div>
+            <div class="col-sm-6">
+                <img th:src="@{'/images/food-type/' + ${foodTypeForm.getFoodsName().get(foodTypeForm.getIndex() + 1)} + '.jpg'}" width="500" height="350"/>
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-sm-6 d-flex justify-content-center">
+                <input type="submit" name="foodName" class="btn btn-secondary justify-content-center" th:value="${foodTypeForm.getFoodsName().get(foodTypeForm.getIndex())}"/>
+            </div>
+            <div class="col-sm-6 d-flex justify-content-center">
+                <input type="submit" name="foodName" class="btn btn-secondary justify-content-center" th:value="${foodTypeForm.getFoodsName().get(foodTypeForm.getIndex()+ 1)}"/>
+            </div>
+        </div>
     </form>
 </div>
 <div th:replace="fragments.html :: main-footer"></div>
