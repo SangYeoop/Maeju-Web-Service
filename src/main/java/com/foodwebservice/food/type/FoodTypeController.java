@@ -2,6 +2,7 @@ package com.foodwebservice.food.type;
 
 import com.foodwebservice.account.Account;
 import com.foodwebservice.account.CurrentAccount;
+import com.foodwebservice.preference.PreferenceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @RequiredArgsConstructor
 @SessionAttributes("foodTypeForm")
@@ -33,14 +33,14 @@ public class FoodTypeController {
         model.addAttribute(account);
         model.addAttribute(foodTypeForm);
         if(foodTypeForm.isEnd()){
+            foodTypeService.setPreferencePoint(account, foodTypeForm.getSelected());
             status.setComplete();
         }
         return "food/type";
     }
 
     @PostMapping("/food/type")
-    public String foodTypeRequest(@CurrentAccount Account account, FoodTypeForm foodTypeForm, Model model,
-                                  String foodName, RedirectAttributes redirectAttributes) {
+    public String foodTypeRequest(@CurrentAccount Account account, FoodTypeForm foodTypeForm, Model model, String foodName) {
         int index = foodTypeForm.getIndex();
 
         if(foodTypeForm.getFoodsName().get(index).equals(foodName))

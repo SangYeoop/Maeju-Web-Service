@@ -1,25 +1,39 @@
 package com.foodwebservice.food.type;
 
+import com.foodwebservice.account.Account;
+import com.foodwebservice.account.AccountService;
 import com.foodwebservice.food.condition.Kind;
 import com.foodwebservice.food.condition.Situation;
 import com.foodwebservice.food.condition.Way;
+import com.foodwebservice.preference.PreferenceService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 @Service
 public class FoodTypeService {
 
-    private List<FoodTypeQuestion> questions = new ArrayList<>();
+    private final PreferenceService preferenceService;
+    private final AccountService accountService;
+    private List<FoodTypeQuestion> questions;
+    
 
     public List<String> getFoodNames() {
         return questions.stream().map(FoodTypeQuestion::getFoodName)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void setPreferencePoint(Account account, List<String> selected) {
+        account = accountService.findById(account.getId());
+        preferenceService.setPreferenceCount(account, questions, selected);
     }
 
     @PostConstruct
