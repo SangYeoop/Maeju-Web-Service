@@ -48,7 +48,7 @@ public class WayPreference {
 
     private int countByEtc;
 
-    public void count(Way way){
+    public WayPreference count(Way way){
         if(way.equals(Way.FRY))
             countByFry++;
         else if(way.equals(Way.SIMMER))
@@ -77,5 +77,6 @@ public class WayPreference {
             countBySliceFish++;
         else
             countByEtc++;
+        return this;
     }
 }

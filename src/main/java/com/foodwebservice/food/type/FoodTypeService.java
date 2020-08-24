@@ -2,6 +2,7 @@ package com.foodwebservice.food.type;
 
 import com.foodwebservice.account.Account;
 import com.foodwebservice.account.AccountService;
+import com.foodwebservice.food.Food;
 import com.foodwebservice.food.condition.Kind;
 import com.foodwebservice.food.condition.Situation;
 import com.foodwebservice.food.condition.Way;
@@ -31,7 +32,7 @@ public class FoodTypeService {
     }
 
     @Transactional
-    public void setPreferencePoint(Account account, List<String> selected) {
+    public void setPreferencePointBySurvey(Account account, List<String> selected) {
         account = accountService.findById(account.getId());
         preferenceService.setPreferenceCount(account, questions, selected);
     }

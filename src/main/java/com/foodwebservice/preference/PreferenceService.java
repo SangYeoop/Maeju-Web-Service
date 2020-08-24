@@ -1,6 +1,7 @@
 package com.foodwebservice.preference;
 
 import com.foodwebservice.account.Account;
+import com.foodwebservice.food.Food;
 import com.foodwebservice.food.type.FoodTypeQuestion;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,31 @@ public class PreferenceService {
     private final KindPreferenceRepository kindPreferenceRepository;
     private final SituationPreferenceRepository situationPreferenceRepository;
     private final WayPreferenceRepository wayPreferenceRepository;
+
+
+    @Transactional
+    public void setPreferenceByFood(Account account, Food food){
+        KindPreference kindPreference = kindPreferenceRepository.findByAccount(account).orElseGet(() -> {
+            KindPreference newPreference = new KindPreference();
+            newPreference.setAccount(account);
+            return newPreference;
+        }).count(food.getKind());
+
+        SituationPreference situationPreference = situationPreferenceRepository.findByAccount(account).orElseGet(() -> {
+            SituationPreference newPreference = new SituationPreference();
+            newPreference.setAccount(account);
+            return newPreference;
+        }).count(food.getSituation());
+        WayPreference wayPreference = wayPreferenceRepository.findByAccount(account).orElseGet(() -> {
+            WayPreference newPreference = new WayPreference();
+            newPreference.setAccount(account);
+            return newPreference;
+        }).count(food.getWay());
+
+        kindPreferenceRepository.save(kindPreference);
+        situationPreferenceRepository.save(situationPreference);
+        wayPreferenceRepository.save(wayPreference);
+    }
 
     @Transactional
     public void setPreferenceCount(Account account, List<FoodTypeQuestion> foodTypeQuestions, List<String> selected) {

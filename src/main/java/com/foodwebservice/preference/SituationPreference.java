@@ -48,7 +48,7 @@ public class SituationPreference {
 
     private int countByEtc;
 
-    public void count(Situation situation){
+    public SituationPreference count(Situation situation){
         if(situation.equals(Situation.DAILY))
             countByDaily++;
         else if(situation.equals(Situation.SPEED))
@@ -77,5 +77,6 @@ public class SituationPreference {
             countByBaby++;
         else
             countByEtc++;
+        return this;
     }
 }

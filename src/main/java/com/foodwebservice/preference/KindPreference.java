@@ -55,7 +55,7 @@ public class KindPreference {
     private int countByEtc;
 
 
-    public void count(Kind kind){
+    public KindPreference count(Kind kind){
         if(kind.equals(Kind.SIDE))
             countBySide++;
         else if(kind.equals(Kind.MAIN))
@@ -90,5 +90,6 @@ public class KindPreference {
             countByBeverage++;
         else
             countByEtc++;
+        return this;
     }
 }

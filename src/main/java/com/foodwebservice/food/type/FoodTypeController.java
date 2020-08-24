@@ -33,7 +33,7 @@ public class FoodTypeController {
         model.addAttribute(account);
         model.addAttribute(foodTypeForm);
         if(foodTypeForm.isEnd()){
-            foodTypeService.setPreferencePoint(account, foodTypeForm.getSelected());
+            foodTypeService.setPreferencePointBySurvey(account, foodTypeForm.getSelected());
             status.setComplete();
         }
         return "food/type";

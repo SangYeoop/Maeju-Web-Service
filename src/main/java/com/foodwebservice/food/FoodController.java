@@ -3,7 +3,9 @@ package com.foodwebservice.food;
 import com.foodwebservice.account.Account;
 import com.foodwebservice.account.AccountService;
 import com.foodwebservice.account.CurrentAccount;
+import com.foodwebservice.food.type.FoodTypeService;
 import com.foodwebservice.food_ingredient.FoodIngredientService;
+import com.foodwebservice.preference.PreferenceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,14 +21,18 @@ import java.util.List;
 public class FoodController {
 
     private final FoodService foodService;
+    private final PreferenceService preferenceService;
     private final FoodIngredientService foodIngredientService;
     private final AccountService accountService;
 
     @GetMapping("/food/{foodId}")
     public String foodView(@CurrentAccount Account account, @PathVariable Long foodId, Model model) {
         Food food = foodService.findById(foodId);
-        if(account != null)
-            model.addAttribute(accountService.findById(account.getId()));
+        if(account != null) {
+            account = accountService.findById(account.getId());
+            model.addAttribute(account);
+            preferenceService.setPreferenceByFood(account, food);
+        }
 
         model.addAttribute("food", food);
         model.addAttribute("ingredients", foodIngredientService.findAllIngredientsAndAmountByFood(food));
