@@ -1,5 +1,6 @@
 package com.foodwebservice.food;
 
+import com.foodwebservice.diet.DietType;
 import com.foodwebservice.food.condition.Difficulty;
 import com.foodwebservice.food.condition.Kind;
 import com.foodwebservice.food.condition.Situation;
@@ -8,7 +9,9 @@ import com.foodwebservice.food_ingredient.FoodIngredient;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -20,7 +23,7 @@ public class Food {
     @Column(name = "food_id")
     private Long id;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, length = 100)
     private String name;
 
     @Column(length = 255)
@@ -54,6 +57,10 @@ public class Food {
     @OneToMany(mappedBy = "food")
     private Set<FoodIngredient> foodIngredients = new HashSet<>();
 
+    @ElementCollection
+    @CollectionTable(name = "food_diettypes", joinColumns = @JoinColumn(name = "food_id"))
+    @Enumerated(EnumType.STRING)
+    private List<DietType> dietTypeList = new ArrayList<>();
 
     public void addFoodIngredient(FoodIngredient foodIngredient){
         this.foodIngredients.add(foodIngredient);

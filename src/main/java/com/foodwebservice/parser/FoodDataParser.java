@@ -1,5 +1,6 @@
 package com.foodwebservice.parser;
 
+import com.foodwebservice.diet.DietType;
 import com.foodwebservice.food.Food;
 import com.foodwebservice.food.condition.Difficulty;
 import com.foodwebservice.food.condition.Kind;
@@ -27,6 +28,9 @@ public class FoodDataParser {
         food.setSituation(Situation.getInstanceAsString(datas[7]));
         food.setIngredient(datas[8]);
         food.setRecipe(datas[9]);
+        for(String value : datas[10].split("%")){
+            food.getDietTypeList().add(DietType.getInstanceAsString(value));
+        }
         return food;
     }
 

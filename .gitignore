@@ -41,3 +41,6 @@ src/main/java/com/foodwebservice/diet/QDiet.java
 
 ### Node modules ###
 /src/main/resources/static/node_modules/
+/src/main/java/com/foodwebservice/preference/QKindPreference.java
+/src/main/java/com/foodwebservice/preference/QSituationPreference.java
+/src/main/java/com/foodwebservice/preference/QWayPreference.java

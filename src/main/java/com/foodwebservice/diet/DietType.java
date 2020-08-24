@@ -4,10 +4,10 @@ import lombok.Getter;
 
 @Getter
 public enum  DietType {
-    ADVENTURE("모험형"), //모험
-    SIMPLE("간편형"), //간편
-    HEALTH("건강형"), //건강
-    REASONABLE("합리형"); //합리
+    ADVENTURE("모험추구형"), //모험
+    SIMPLE("간편추구형"), //간편
+    HEALTH("건강/안전추구형"), //건강
+    REASONABLE("합리추구형"); //합리
 
     private String name;
 

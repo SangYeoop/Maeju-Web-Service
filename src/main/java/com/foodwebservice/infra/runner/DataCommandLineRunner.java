@@ -36,31 +36,36 @@ public class DataCommandLineRunner implements CommandLineRunner {
     }
 
     private void initFoodData()  throws Exception {
-        ClassPathResource resource = new ClassPathResource("csv/food-data.csv");
-        String data = new String(resource.getInputStream().readAllBytes());
-        List<String> datas = List.of(data.split("\n"));
+        if (foodRepository.count() == 0) {
+            ClassPathResource resource = new ClassPathResource("csv/food-data-full.csv");
+            String data = new String(resource.getInputStream().readAllBytes());
+            List<String> datas = List.of(data.split("\n"));
 
+            datas.forEach((d) -> {
+                try {
+                    Food food = foodDataParser.getFoodAsString(d);
 
-        datas.forEach((d) -> {
-            Food food = foodDataParser.getFoodAsString(d);
+                    String ingredients = d.split(",")[8];
+                    List<Tuple<Ingredient, String>> ingredientsList = ingredientDataParser.getIngredientsAsString(ingredients);
 
-            String ingredients = d.split(",")[8];
-            List<Tuple<Ingredient,String>> ingredientsList = ingredientDataParser.getIngredientsAsString(ingredients);
+                    food = foodRepository.save(food);
 
-            food = foodRepository.save(food);
+                    ingredientsList = ingredientsList.stream().map((tuple) -> {
+                        Ingredient ingredient = ingredientRepository.findByName(tuple.getFirst().getName()).orElse(null);
 
-            ingredientsList = ingredientsList.stream().map((tuple) -> {
-                Ingredient ingredient = ingredientRepository.findByName(tuple.getFirst().getName()).orElse(null);
+                        if (ingredient == null)
+                            ingredient = ingredientRepository.save(tuple.getFirst());
 
-                if(ingredient == null)
-                    ingredient = ingredientRepository.save(tuple.getFirst());
+                        return Tuple.of(ingredient, tuple.getSecond());
+                    }).collect(Collectors.toList());
 
-                return Tuple.of(ingredient, tuple.getSecond());
-            }).collect(Collectors.toList());
-
-            FoodIngredientFactory foodIngredientFactory = new FoodIngredientFactory();
-            List<FoodIngredient> ingredients1 = foodIngredientFactory.getFoodIngredient(food, ingredientsList);
-            foodIngredientRepository.saveAll(ingredients1);
-        });
+                    FoodIngredientFactory foodIngredientFactory = new FoodIngredientFactory();
+                    List<FoodIngredient> ingredients1 = foodIngredientFactory.getFoodIngredient(food, ingredientsList);
+                    foodIngredientRepository.saveAll(ingredients1);
+                } catch (Exception e) {
+                    System.out.println("Error String" + d);
+                }
+            });
+        }
     }
 }

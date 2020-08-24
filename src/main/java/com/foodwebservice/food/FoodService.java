@@ -10,6 +10,7 @@ import com.foodwebservice.parser.IngredientDataParser;
 import com.foodwebservice.parser.Tuple;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +26,8 @@ import java.util.stream.Collectors;
 public class FoodService {
     private final FoodRepository foodRepository;
 
-    public List<Food> findByKeyword(String foodName, Pageable pageable) {
-        return foodRepository.findByKeyword(foodName, pageable).getContent();
+    public Page<Food> findByKeyword(String foodName, Pageable pageable) {
+        return foodRepository.findByKeyword(foodName, pageable);
     }
 
     public Food findById(Long id){
