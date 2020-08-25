@@ -76,7 +76,6 @@ public class SituationPreference {
         situations.add(Tuple.of(Situation.HANGOVER, countByHangover));
         situations.add(Tuple.of(Situation.HOLIDAY, countByHoliday));
         situations.add(Tuple.of(Situation.BABY, countByBaby));
-        situations.add(Tuple.of(Situation.ETC, countByEtc));
 
         return situations;
     }

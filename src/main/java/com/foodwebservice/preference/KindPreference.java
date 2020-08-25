@@ -61,7 +61,7 @@ public class KindPreference {
         List<Tuple<Kind, Integer>> kinds = getTuplesKindCount();
         kinds.sort((tuple1, tuple2) -> tuple2.getSecond().compareTo(tuple1.getSecond()));
 
-        return kinds.subList(0, 3).stream().map(Tuple::getFirst).collect(Collectors.toList());
+        return kinds.subList(0, 1).stream().map(Tuple::getFirst).collect(Collectors.toList());
     }
 
     private List<Tuple<Kind, Integer>> getTuplesKindCount() {
@@ -82,8 +82,6 @@ public class KindPreference {
         kinds.add(Tuple.of(Kind.BREAD, countByBread));
         kinds.add(Tuple.of(Kind.SNACK, countBySnack));
         kinds.add(Tuple.of(Kind.BEVERAGE, countByBeverage));
-        kinds.add(Tuple.of(Kind.ETC, countByEtc));
-
         return kinds;
     }
 

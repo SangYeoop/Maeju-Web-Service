@@ -84,7 +84,6 @@ public class IngredientPreference {
         ingredientTypes.add(Tuple.of(IngredientType.FRUIT, countByFruit));
         ingredientTypes.add(Tuple.of(IngredientType.NUTS, countByNuts));
         ingredientTypes.add(Tuple.of(IngredientType.GRAIN, countByGrain));
-        ingredientTypes.add(Tuple.of(IngredientType.ETC, countByEtc));
         return ingredientTypes;
     }
 

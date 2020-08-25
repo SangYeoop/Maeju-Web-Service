@@ -22,11 +22,4 @@ public class Ingredient {
     @Enumerated(EnumType.STRING)
     private IngredientType ingredientType;
 
-    @OneToMany(mappedBy = "ingredient")
-    private Set<FoodIngredient> foodIngredients = new HashSet<>();
-
-
-    public void addFoodIngredient(FoodIngredient foodIngredient){
-        this.foodIngredients.add(foodIngredient);
-    }
 }

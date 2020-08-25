@@ -1,8 +1,10 @@
 package com.foodwebservice.preference;
 
 import com.foodwebservice.account.Account;
+import com.foodwebservice.account.AccountRepository;
 import com.foodwebservice.food.Food;
 import com.foodwebservice.food.type.FoodTypeQuestion;
+import com.foodwebservice.food_ingredient.FoodIngredientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +19,8 @@ public class PreferenceService {
     private final SituationPreferenceRepository situationPreferenceRepository;
     private final WayPreferenceRepository wayPreferenceRepository;
     private final IngredientPreferenceRepository ingredientPreferenceRepository;
+    private final FoodIngredientRepository foodIngredientRepository;
+    private final AccountRepository accountRepository;
 
     @Transactional
     public void setPreferenceByFood(Account account, Food food){
@@ -31,16 +35,24 @@ public class PreferenceService {
             newPreference.setAccount(account);
             return newPreference;
         }).count(food.getSituation());
+
         WayPreference wayPreference = wayPreferenceRepository.findByAccount(account).orElseGet(() -> {
             WayPreference newPreference = new WayPreference();
             newPreference.setAccount(account);
             return newPreference;
         }).count(food.getWay());
 
-        account.setExistFoodType(true);
+        IngredientPreference ingredientPreference = ingredientPreferenceRepository.findByAccount(account).orElseGet(() -> {
+            IngredientPreference newPreference = new IngredientPreference();
+            newPreference.setAccount(account);
+            return newPreference;
+        });
+        foodIngredientRepository.findAllWithIngredientByFood(food).forEach((foodIngredient -> ingredientPreference.count(foodIngredient.getIngredient().getIngredientType())));
+
         kindPreferenceRepository.save(kindPreference);
         situationPreferenceRepository.save(situationPreference);
         wayPreferenceRepository.save(wayPreference);
+        ingredientPreferenceRepository.save(ingredientPreference);
     }
 
     @Transactional
@@ -60,7 +72,9 @@ public class PreferenceService {
                 }
             });
         });
+        account.setExistFoodType(true);
 
+        accountRepository.save(account);
         ingredientPreferenceRepository.save(ingredientPreference);
         kindPreferenceRepository.save(kindPreference);
         situationPreferenceRepository.save(situationPreference);

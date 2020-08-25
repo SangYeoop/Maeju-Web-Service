@@ -53,7 +53,7 @@ public class WayPreference {
 
     private int countByEtc;
 
-    public List<Way> getPreferenceSituations() {
+    public List<Way> getPreferenceWays() {
         List<Tuple<Way, Integer>> ways = getTuplesWayCount();
         ways.sort((tuple1, tuple2) -> tuple2.getSecond().compareTo(tuple1.getSecond()));
 
@@ -75,7 +75,6 @@ public class WayPreference {
         ways.add(Tuple.of(Way.ROAST, countByRoast));
         ways.add(Tuple.of(Way.BOIL_SLIGHTLY, countByBoilSlightly));
         ways.add(Tuple.of(Way.SLICE_FISH, countBySliceFish));
-        ways.add(Tuple.of(Way.ETC, countByEtc));
         return ways;
     }
 

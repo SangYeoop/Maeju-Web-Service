@@ -62,8 +62,4 @@ public class Food {
     @Enumerated(EnumType.STRING)
     private List<DietType> dietTypeList = new ArrayList<>();
 
-    public void addFoodIngredient(FoodIngredient foodIngredient){
-        this.foodIngredients.add(foodIngredient);
-    }
-
 }

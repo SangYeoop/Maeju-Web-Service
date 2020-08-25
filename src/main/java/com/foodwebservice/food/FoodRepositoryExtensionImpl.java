@@ -1,9 +1,13 @@
 package com.foodwebservice.food;
 
+import com.foodwebservice.Ingredient.IngredientType;
+import com.foodwebservice.Ingredient.QIngredient;
 import com.foodwebservice.diet.DietType;
 import com.foodwebservice.food.condition.Kind;
+import com.foodwebservice.food.condition.Situation;
+import com.foodwebservice.food.condition.Way;
+import com.foodwebservice.food_ingredient.QFoodIngredient;
 import com.querydsl.core.QueryResults;
-import com.querydsl.core.types.CollectionExpression;
 import com.querydsl.jpa.JPQLQuery;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -30,11 +34,52 @@ public class FoodRepositoryExtensionImpl extends QuerydslRepositorySupport imple
     }
 
     @Override
-    public List<Food> findByDietTypeAndKinds(DietType dietType, List<Kind> kinds) {
+    public List<Food> findByDietTypeAndKinds(List<DietType> dietTypes, List<Kind> kinds, List<IngredientType> ingredients) {
         QFood food = QFood.food;
+        QFoodIngredient foodIngredient = QFoodIngredient.foodIngredient;
+        QIngredient ingredient = QIngredient.ingredient;
 
         JPQLQuery<Food> query = from(food)
-                .where(food.dietTypeList.contains(dietType).and(food.kind.in(kinds)));
+                .leftJoin(food.foodIngredients, foodIngredient).fetchJoin()
+                .leftJoin(foodIngredient.ingredient, ingredient).fetchJoin()
+                .where(food.dietTypeList.any().in(dietTypes)
+                        .and(food.kind.in(kinds))
+                        .and(food.foodIngredients.any().ingredient.ingredientType.in(ingredients)))
+                .distinct().limit(10);
+
+        return query.fetch();
+    }
+
+    @Override
+    public List<Food> findByDietTypeAndWays(List<DietType> dietTypes, List<Way> ways, List<IngredientType> ingredients) {
+        QFood food = QFood.food;
+        QFoodIngredient foodIngredient = QFoodIngredient.foodIngredient;
+        QIngredient ingredient = QIngredient.ingredient;
+
+        JPQLQuery<Food> query = from(food)
+                .leftJoin(food.foodIngredients, foodIngredient).fetchJoin()
+                .leftJoin(foodIngredient.ingredient, ingredient).fetchJoin()
+                .where(food.dietTypeList.any().in(dietTypes)
+                        .and(food.way.in(ways))
+                        .and(food.foodIngredients.any().ingredient.ingredientType.in(ingredients)))
+                .distinct().limit(10);
+
+        return query.fetch();
+    }
+
+    @Override
+    public List<Food> findByDietTypeAndSituations(List<DietType> dietTypes, List<Situation> situations, List<IngredientType> ingredients) {
+        QFood food = QFood.food;
+        QFoodIngredient foodIngredient = QFoodIngredient.foodIngredient;
+        QIngredient ingredient = QIngredient.ingredient;
+
+        JPQLQuery<Food> query = from(food)
+                .leftJoin(food.foodIngredients, foodIngredient).fetchJoin()
+                .leftJoin(foodIngredient.ingredient, ingredient).fetchJoin()
+                .where(food.dietTypeList.any().in(dietTypes)
+                        .and(food.situation.in(situations))
+                        .and(food.foodIngredients.any().ingredient.ingredientType.in(ingredients)))
+                .distinct().limit(10);
 
         return query.fetch();
     }
