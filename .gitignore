@@ -44,3 +44,4 @@ src/main/java/com/foodwebservice/diet/QDiet.java
 /src/main/java/com/foodwebservice/preference/QKindPreference.java
 /src/main/java/com/foodwebservice/preference/QSituationPreference.java
 /src/main/java/com/foodwebservice/preference/QWayPreference.java
+/src/main/java/com/foodwebservice/preference/QIngredientPreference.java

@@ -1,5 +1,6 @@
 package com.foodwebservice.food.type;
 
+import com.foodwebservice.Ingredient.IngredientType;
 import com.foodwebservice.food.condition.Kind;
 import com.foodwebservice.food.condition.Situation;
 import com.foodwebservice.food.condition.Way;
@@ -16,5 +17,5 @@ public class FoodTypeQuestion {
     List<Kind> kinds = new ArrayList<>();
     List<Way> ways = new ArrayList<>();
     List<Situation> situations = new ArrayList<>();
-
+    List<IngredientType> ingredients = new ArrayList<>();
 }

@@ -1,5 +1,6 @@
 package com.foodwebservice.food.type;
 
+import com.foodwebservice.Ingredient.IngredientType;
 import com.foodwebservice.account.Account;
 import com.foodwebservice.account.AccountService;
 import com.foodwebservice.food.Food;
@@ -58,6 +59,9 @@ public class FoodTypeService {
                     foodTypeQuestion.getSituations().add(Situation.getInstanceAsString(situations));
             }
 
+            for(String ingredientTypes : values[5].split("%")) {
+                foodTypeQuestion.getIngredients().add(IngredientType.getInstanceAsString(ingredientTypes));
+            }
             return foodTypeQuestion;
         }).collect(Collectors.toList());
     }

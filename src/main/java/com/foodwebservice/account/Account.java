@@ -37,7 +37,9 @@ public class Account {
     @ManyToMany
     private Set<Food> likeFoods = new HashSet<>();
 
-    private boolean existDietType;
+    private boolean existDietType = false;
+
+    private boolean existFoodType = false;
 
     public Account update(ProfileUpdateForm profileUpdateForm) {
         this.name = profileUpdateForm.getName();

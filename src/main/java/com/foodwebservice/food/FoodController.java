@@ -3,7 +3,6 @@ package com.foodwebservice.food;
 import com.foodwebservice.account.Account;
 import com.foodwebservice.account.AccountService;
 import com.foodwebservice.account.CurrentAccount;
-import com.foodwebservice.food.type.FoodTypeService;
 import com.foodwebservice.food_ingredient.FoodIngredientService;
 import com.foodwebservice.preference.PreferenceService;
 import lombok.RequiredArgsConstructor;

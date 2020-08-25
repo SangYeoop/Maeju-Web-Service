@@ -4,7 +4,7 @@ public enum IngredientType {
     PORK("돼지고기"),
     BEEF("소고기"),
     CHICKEN("닭고기"),
-    MEAT("육류"),
+    MEAT("기타육류"),
     VEGETABLE("채소류"),
     SEAFOOD("해물류"),
     DAIRY("달걀/유제품"),

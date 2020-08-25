@@ -1,11 +1,11 @@
 https://img.piku.co.kr/w/uploads/7zd4dE/b8c670b5ad8c7f4ab615d79eb5e56080.jpg,닭도리탕,국/탕,볶음,일상%손님접대,닭고기%채소류
 https://img.piku.co.kr/w/uploads/7zd4dE/628fce0cea0867946a3e06f9fa277eea.jpg,소고기무국,국/탕,끓이기,일상,소고기%채소류
-https://img.piku.co.kr/w/uploads/7zd4dE/c4f0bb3d84a5b8a7d7808d78f289fe55.jpg,잡채밥,밥/죽/떡,볶음,일상,면%쌀
+https://img.piku.co.kr/w/uploads/7zd4dE/c4f0bb3d84a5b8a7d7808d78f289fe55.jpg,잡채밥,밥/죽/떡,볶음,일상,밀가루%쌀
 https://img.piku.co.kr/w/uploads/7zd4dE/72de374f4d20410c3ee6b34183acb5ff.jpg,제육덮밥,밥/죽/떡,볶음,일상,돼지고기%쌀
-https://img.piku.co.kr/w/uploads/7zd4dE/972d15584f541c372e0ba43f4c34029d.jpg,잔치국수,면/만두,끓이기,일상,면
+https://img.piku.co.kr/w/uploads/7zd4dE/972d15584f541c372e0ba43f4c34029d.jpg,잔치국수,면/만두,끓이기,일상,밀가루
 https://img.piku.co.kr/w/uploads/7zd4dE/8888af892d48c49c749966341f4ae9c4.jpg,순두부찌개,찌개,끓이기,일상,콩/견과류%버섯류
 https://img.piku.co.kr/w/uploads/7zd4dE/ae2bacd9d073141157954a9183a3736a.jpg,소떡소떡,밥/죽/떡,굽기,간식,쌀%가공식품류
-https://img.piku.co.kr/w/uploads/7zd4dE/dcf10b7c4bebeb62470ce60c176aa02d.jpg,비빔냉면,면/만두,비빔,일상,면
+https://img.piku.co.kr/w/uploads/7zd4dE/dcf10b7c4bebeb62470ce60c176aa02d.jpg,비빔냉면,면/만두,비빔,일상,밀가루
 https://img.piku.co.kr/w/uploads/7zd4dE/411c3be8439e344de212b1af702f5204.jpg,훈제오리,메인반찬,기타,일상%손님접대,기타육류
 https://img.piku.co.kr/w/uploads/7zd4dE/c25a950aee99ab45028de567e7dcd62d.jpg,추어탕,국/탕,끓이기,일상%영양식,생선%채소류
 https://img.piku.co.kr/w/uploads/7zd4dE/99f2f971041d3f54eb0cd5ce941866d3.jpg,비빔밥,밥/죽/떡,비빔,일상%초스피드,쌀%채소류
