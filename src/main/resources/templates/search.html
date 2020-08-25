@@ -16,9 +16,7 @@
                         <i class="fas fa-star text-secondary pl-2"><span th:text="${food.getDifficulty().getStringAsValue()}"></span></i>
                         <i class="fas fa-clock text-success pl-2"><span th:text="${food.getTime()}"></span></i>
                     </div>
-                    <div class="col-sm-3">
-                        <img th:src="${'/images/food-image-example.png'}" class="card-img-right" style="height: 100%; width: 100%; object-fit: contain">
-                    </div>
+                    <img th:src="${'/images/recipe/' + food.getImagePath() +  '.jpg'}" class="card-img-right img-thumbnail" style="height: 100px; width: 100px;">
                 </div>
             </div>
         </div>

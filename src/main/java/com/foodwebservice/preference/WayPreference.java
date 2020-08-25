@@ -57,7 +57,7 @@ public class WayPreference {
         List<Tuple<Way, Integer>> ways = getTuplesWayCount();
         ways.sort((tuple1, tuple2) -> tuple2.getSecond().compareTo(tuple1.getSecond()));
 
-        return ways.subList(0, 3).stream().map(Tuple::getFirst).collect(Collectors.toList());
+        return ways.subList(0, 1).stream().map(Tuple::getFirst).collect(Collectors.toList());
     }
 
     private List<Tuple<Way, Integer>> getTuplesWayCount() {

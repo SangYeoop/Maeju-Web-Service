@@ -39,7 +39,7 @@
             </h6>
         </div>
         <div class="col-sm-4">
-            <img th:src="${'/images/food-image-example.png'}" class="card-img-right" width="300" height="300">
+            <img th:src="${'/images/recipe/' + food.getImagePath() +  '.jpg'}" class="card-img-right img-thumbnail" width="600" height="400">
         </div>
     </div>
     <br/>

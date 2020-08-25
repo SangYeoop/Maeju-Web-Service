@@ -57,7 +57,7 @@ public class SituationPreference {
         List<Tuple<Situation, Integer>> situations = getTuplesSituationCount();
         situations.sort((tuple1, tuple2) -> tuple2.getSecond().compareTo(tuple1.getSecond()));
 
-        return situations.subList(0, 3).stream().map(Tuple::getFirst).collect(Collectors.toList());
+        return situations.subList(0, 1).stream().map(Tuple::getFirst).collect(Collectors.toList());
     }
 
     private List<Tuple<Situation, Integer>> getTuplesSituationCount() {

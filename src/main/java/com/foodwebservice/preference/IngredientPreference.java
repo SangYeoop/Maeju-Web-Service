@@ -63,7 +63,7 @@ public class IngredientPreference {
         List<Tuple<IngredientType, Integer>> ingredientTypes = getTuplesIngredientTypeCount();
         ingredientTypes.sort((tuple1, tuple2) -> tuple2.getSecond().compareTo(tuple1.getSecond()));
 
-        return ingredientTypes.subList(0, 3).stream().map(Tuple::getFirst).collect(Collectors.toList());
+        return ingredientTypes.subList(0, 1).stream().map(Tuple::getFirst).collect(Collectors.toList());
     }
 
     private List<Tuple<IngredientType, Integer>> getTuplesIngredientTypeCount() {
