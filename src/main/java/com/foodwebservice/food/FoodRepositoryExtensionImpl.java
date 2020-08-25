@@ -45,7 +45,7 @@ public class FoodRepositoryExtensionImpl extends QuerydslRepositorySupport imple
                 .where(food.dietTypeList.any().in(dietTypes)
                         .and(food.kind.in(kinds))
                         .and(food.foodIngredients.any().ingredient.ingredientType.in(ingredients)))
-                .distinct().limit(4);
+                .distinct().limit(6);
 
         return query.fetch();
     }
@@ -62,7 +62,7 @@ public class FoodRepositoryExtensionImpl extends QuerydslRepositorySupport imple
                 .where(food.dietTypeList.any().in(dietTypes)
                         .and(food.way.in(ways))
                         .and(food.foodIngredients.any().ingredient.ingredientType.in(ingredients)))
-                .distinct().limit(4);
+                .distinct().limit(6);
 
         return query.fetch();
     }
@@ -79,7 +79,7 @@ public class FoodRepositoryExtensionImpl extends QuerydslRepositorySupport imple
                 .where(food.dietTypeList.any().in(dietTypes)
                         .and(food.situation.in(situations))
                         .and(food.foodIngredients.any().ingredient.ingredientType.in(ingredients)))
-                .distinct().limit(4);
+                .distinct().limit(6);
 
         return query.fetch();
     }
