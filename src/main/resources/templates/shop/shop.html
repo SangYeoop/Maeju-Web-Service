@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments.html :: main-head"></div>
+<body>
+<div th:replace="fragments.html :: main-nav"></div>
+
+<div class="container">
+    <br/>
+    <h2 class="font-weight-bold main-text-color">장바구니</h2>
+    <hr/>
+    <div class="row">
+        <div class="col-md-12 m-3 card shadow-sm mh-150" th:each="food : ${foods}">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-10">
+                        <a th:href="@{'/food/' + ${food.getId()}}"><h5 class="card-title" th:text="${food.name}">음식 이름1</h5></a>
+                        <i class="fas fa-user text-primary"><span th:text="${food.getAmount()}"></span></i>
+                        <i class="fas fa-star text-secondary pl-2"><span th:text="${food.getDifficulty().getStringAsValue()}"></span></i>
+                        <i class="fas fa-clock text-success pl-2"><span th:text="${food.getTime()}"></span></i>
+                        <span class="badge badge-primary" th:text="${food.getKind().getStringAsInstance()}">종류별</span>
+                        <span class="badge badge-secondary" th:text="${food.getWay().getStringAsInstance()}">방법별</span>
+                        <span class="badge badge-success" th:text="${food.getSituation().getStringAsInstance()}">상황별</span>
+                        <br/>
+                        <form th:method="post" th:action="@{'/shop/select/' + ${food.id} + '/add'}">
+                            <button class="btn btn-outline-primary mt-1">선택하기</button>
+                        </form>
+                    </div>
+                    <img th:src="${'/images/recipe/' + food.getImagePath() +  '.jpg'}" class="card-img-right img-thumbnail" style="height: 90px; width: 180px;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <br/>
+</div>
+
+<div th:if="${!#lists.isEmpty(basketForm.getSelectedFoods())}">
+    <h4 class="font-weight-bold main-text-color text-center">선택된 음식</h4>
+    <div class="row bg-light justify-content-center">
+        <div class="col-2 ml-2" th:each="food : ${basketForm.getSelectedFoods()}">
+            <div class="card mt-2 mb-2" style="width: 15rem">
+                <span class="card-body main-text-color font-weight-bold" th:text="${food.getName()}">Food Name</span>
+                <form th:method="post" th:action="@{'/shop/select/' + ${food.id} +'/remove'}">
+                    <button class="btn btn-outline-primary m-2">취소</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="text-center">
+        <a class="btn btn-primary btn-lg" th:href="@{'/shop/select/buy'}" role="button">구매하러 가기</a>
+    </div>
+</div>
+
+<div th:replace="fragments.html :: main-footer"></div>
+</body>
+</html>

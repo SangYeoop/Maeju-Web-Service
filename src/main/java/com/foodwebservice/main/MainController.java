@@ -15,10 +15,13 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
+@SessionAttributes("basketForm")
 @RequiredArgsConstructor
 @Controller
 public class MainController {
@@ -27,7 +30,8 @@ public class MainController {
     private final FoodService foodService;
 
     @GetMapping("/")
-    public String indexView(@CurrentAccount Account account, Model model) {
+    public String indexView(@CurrentAccount Account account, Model model, SessionStatus status) {
+        status.setComplete();
         if(account != null) {
             account = accountService.findById(account.getId());
             model.addAttribute(account);

@@ -5,6 +5,8 @@ import com.foodwebservice.food.Food;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class ShopService {
@@ -26,4 +28,7 @@ public class ShopService {
         shopRepository.delete(shop);
     }
 
+    public List<Shop> findWithFoodAllByAccount(Account user) {
+        return shopRepository.findWithFoodAllByAccount(user);
+    }
 }
