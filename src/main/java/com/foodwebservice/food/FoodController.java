@@ -5,6 +5,7 @@ import com.foodwebservice.account.AccountService;
 import com.foodwebservice.account.CurrentAccount;
 import com.foodwebservice.food_ingredient.FoodIngredientService;
 import com.foodwebservice.preference.PreferenceService;
+import com.foodwebservice.shop.ShopRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,12 +24,14 @@ public class FoodController {
     private final PreferenceService preferenceService;
     private final FoodIngredientService foodIngredientService;
     private final AccountService accountService;
+    private final ShopRepository shopRepository;
 
     @GetMapping("/food/{foodId}")
     public String foodView(@CurrentAccount Account account, @PathVariable Long foodId, Model model) {
         Food food = foodService.findById(foodId);
         if(account != null) {
             account = accountService.findById(account.getId());
+            model.addAttribute("isExistShop", shopRepository.existsByAccountAndFood(account, food));
             model.addAttribute(account);
             preferenceService.setPreferenceByFood(account, food);
         }

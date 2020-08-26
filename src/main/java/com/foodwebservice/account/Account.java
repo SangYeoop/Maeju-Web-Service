@@ -4,6 +4,7 @@ import com.foodwebservice.account.form.ProfileUpdateForm;
 import com.foodwebservice.account.type.AccountType;
 import com.foodwebservice.account.type.GenderType;
 import com.foodwebservice.food.Food;
+import com.foodwebservice.shop.Shop;
 import lombok.*;
 
 import javax.persistence.*;
@@ -36,6 +37,9 @@ public class Account {
 
     @ManyToMany
     private Set<Food> likeFoods = new HashSet<>();
+    
+    @OneToMany(mappedBy = "account")
+    private Set<Shop> shops = new HashSet<>();
 
     private boolean existDietType = false;
 
