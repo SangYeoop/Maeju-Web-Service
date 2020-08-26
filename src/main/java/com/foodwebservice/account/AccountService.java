@@ -6,6 +6,7 @@ import com.foodwebservice.account.type.AccountType;
 import com.foodwebservice.account.type.GenderType;
 import com.foodwebservice.account.type.LocalAccount;
 import com.foodwebservice.account.type.OAuth2Account;
+import com.foodwebservice.diet.DietType;
 import com.foodwebservice.food.Food;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -78,7 +79,8 @@ public class AccountService implements UserDetailsService, OAuth2UserService<OAu
         account.setCreatedAt(LocalDateTime.now());
         account.setGenderType(GenderType.NONE);
         account.setAccountType(accountType);
-        login(accountRepository.save(account));
+        account = accountRepository.save(account);
+        login(account);
     }
 
     public void delete(Account account) {
@@ -132,7 +134,12 @@ public class AccountService implements UserDetailsService, OAuth2UserService<OAu
         if(account.getAccountType() == AccountType.LOCAL){
             throw new OAuth2AuthenticationException(new OAuth2Error("400", "로컬 계정으로 존재하는 아이디 입니다.", "/login"));
         }
-        account.update(new ProfileUpdateForm((String)attributes.get("name"), account.getEmail(), account.getGenderType()));
+        ProfileUpdateForm profileUpdateForm = ProfileUpdateForm.builder()
+                .name((String)attributes.get("name"))
+                .email(account.getEmail())
+                .genderType(account.getGenderType())
+                .build();
+        account.update(profileUpdateForm);
         return accountRepository.save(account);
     }
 

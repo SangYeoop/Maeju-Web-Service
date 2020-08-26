@@ -4,6 +4,8 @@ import com.foodwebservice.account.form.PasswordForm;
 import com.foodwebservice.account.form.ProfileUpdateForm;
 import com.foodwebservice.account.type.AccountType;
 import com.foodwebservice.account.validator.PasswordFormValidator;
+import com.foodwebservice.diet.DietRepository;
+import com.foodwebservice.diet.DietType;
 import com.foodwebservice.food.Food;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -30,6 +32,7 @@ public class AccountSettingsController {
     private final ModelMapper modelMapper;
     private final AccountService accountService;
     private final AccountRepository accountRepository;
+    private final DietRepository dietRepository;
 
     @InitBinder("passwordForm")
     public void passwordFormInitBinder(WebDataBinder webDataBinder){
@@ -38,8 +41,14 @@ public class AccountSettingsController {
 
     @GetMapping("/settings/profile")
     public String settingsProfileView(@CurrentAccount Account account, Model model){
+        account = accountService.findById(account.getId());
+        DietType dietType = dietRepository.findByAccount(account).orElse(null).getDietType();
+
+        ProfileUpdateForm profileUpdateForm = modelMapper.map(account, ProfileUpdateForm.class);
+        profileUpdateForm.setDietType(dietType);
+
         model.addAttribute(account);
-        model.addAttribute(modelMapper.map(account, ProfileUpdateForm.class));
+        model.addAttribute(profileUpdateForm);
         return "settings/profile";
     }
 

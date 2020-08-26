@@ -1,5 +1,6 @@
 package com.foodwebservice.preference;
 
+import com.foodwebservice.Ingredient.IngredientType;
 import com.foodwebservice.account.Account;
 import com.foodwebservice.account.AccountRepository;
 import com.foodwebservice.food.Food;
@@ -9,7 +10,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.EnumSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -47,7 +50,16 @@ public class PreferenceService {
             newPreference.setAccount(account);
             return newPreference;
         });
-        foodIngredientRepository.findAllWithIngredientByFood(food).forEach((foodIngredient -> ingredientPreference.count(foodIngredient.getIngredient().getIngredientType())));
+
+//        EnumSet<IngredientType> ingredientTypes = EnumSet.noneOf(IngredientType.class);
+//        foodIngredientRepository.findAllWithIngredientByFood(food).forEach((foodIngredient -> {
+//            ingredientTypes.add(foodIngredient.getIngredient().getIngredientType());
+//        }));
+//        ingredientTypes.forEach(ingredientPreference::count);
+
+        foodIngredientRepository.findAllWithIngredientByFood(food).stream()
+                .map(foodIngredient -> foodIngredient.getIngredient().getIngredientType())
+                .collect(Collectors.toSet()).forEach(ingredientPreference::count);
 
         kindPreferenceRepository.save(kindPreference);
         situationPreferenceRepository.save(situationPreference);
