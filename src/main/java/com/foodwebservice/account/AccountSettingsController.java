@@ -45,7 +45,7 @@ public class AccountSettingsController {
         account = accountService.findById(account.getId());
 
         Diet diet = dietRepository.findByAccount(account).orElse(null);
-        DietType dietType = null;
+        DietType dietType = DietType.NONE;
         if(diet != null)
             dietType = diet.getDietType();
 
