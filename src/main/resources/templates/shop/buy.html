@@ -11,25 +11,33 @@
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">#</th>
+                <th scope="col">선택</th>
                 <th scope="col">재료 이름</th>
                 <th scope="col">재료 타입</th>
+                <th scope="col">추천 수량</th>
                 <th scope="col">수량</th>
-                <th scope="col">구매 사이트</th>
             </tr>
         </thead>
         <tbody>
             <tr th:each="ingredient, itemStat : ${ingredients}">
-                <th scope="row" th:text="${itemStat.index + 1}"></th>
+                <th scope="row"><input type="checkbox" checked></th>
                 <td th:text="${ingredient.getIngredientName()}"></td>
                 <td th:text="${ingredient.getIngredientType().getStringAsInstance()}"></td>
                 <td th:text="${ingredient.getAmount()}"></td>
-                <td><a href="https://www.kurly.com/">마켓컬리 이동하기</a></td>
+                <td><input type="text" class="form-control" th:value="${ingredient.getAmount()}" id="name" aria-describedby="nameHelp" placeholder="수량" required></td>
             </tr>
         </tbody>
     </table>
+    <div class="row">
+        <div class="col-sm-3">
+            <input type="text" class="form-control" aria-describedby="nameHelp" placeholder="추가하고 싶은 다른 재료">
+        </div>
+        <div class="col-sm-3">
+            <button class="btn btn-primary">추가</button>
+        </div>
+    </div>
     <br/>
-    <h4 class="main-text-color font-weight-bold">모든 반찬을 보유하시거나 구매하셨다면 다음으로 버튼을 눌러주세요!
+    <h4 class="main-text-color font-weight-bold">모든 반찬을 보유하시거나 선택하셨다면 다음으로 버튼을 눌러주세요!
         <a class="btn btn-primary btn-lg m-3" th:href="@{'/shop/select/next'}" role="button">다음으로</a>
     </h4>
 </div>
