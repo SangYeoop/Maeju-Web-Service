@@ -24,6 +24,7 @@ public class FoodTypeController {
         foodTypeForm.setFoodsName(foodTypeService.getFoodNames());
         foodTypeForm.setIndex(0);
         foodTypeForm.setEnd(false);
+        foodTypeForm.setSequence(Sequence.SIXTH);
         return foodTypeForm;
     }
 
@@ -53,12 +54,11 @@ public class FoodTypeController {
 
         if(foodTypeForm.getFoodsName().size() == foodTypeForm.getIndex()) {
             foodTypeForm.setIndex(0);
+            foodTypeForm.setSequence(foodTypeForm.getSequence().getPrevious());
         }
 
-        if(foodTypeForm.getFoodsName().size() == 1) {
+        if(foodTypeForm.getFoodsName().size() == 1)
             foodTypeForm.setEnd(true);
-            return "redirect:/food/type";
-        }
 
         return "redirect:/food/type";
     }

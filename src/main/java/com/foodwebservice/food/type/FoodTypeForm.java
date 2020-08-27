@@ -11,4 +11,5 @@ public class FoodTypeForm {
     List<String> selected = new ArrayList<>();
     int index;
     boolean isEnd;
+    Sequence sequence;
 }
