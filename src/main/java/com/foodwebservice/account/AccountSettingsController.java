@@ -4,6 +4,7 @@ import com.foodwebservice.account.form.PasswordForm;
 import com.foodwebservice.account.form.ProfileUpdateForm;
 import com.foodwebservice.account.type.AccountType;
 import com.foodwebservice.account.validator.PasswordFormValidator;
+import com.foodwebservice.diet.Diet;
 import com.foodwebservice.diet.DietRepository;
 import com.foodwebservice.diet.DietType;
 import com.foodwebservice.food.Food;
@@ -42,7 +43,11 @@ public class AccountSettingsController {
     @GetMapping("/settings/profile")
     public String settingsProfileView(@CurrentAccount Account account, Model model){
         account = accountService.findById(account.getId());
-        DietType dietType = dietRepository.findByAccount(account).orElse(null).getDietType();
+
+        Diet diet = dietRepository.findByAccount(account).orElse(null);
+        DietType dietType = null;
+        if(diet != null)
+            dietType = diet.getDietType();
 
         ProfileUpdateForm profileUpdateForm = modelMapper.map(account, ProfileUpdateForm.class);
         profileUpdateForm.setDietType(dietType);
