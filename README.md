@@ -9,7 +9,7 @@
 
 **메인 페이지**
 
-![Maeju-Index](./images/Maeju-Index.png)
+![Maeju-Index](./images/Maeju-Index.PNG)
 
 
 
