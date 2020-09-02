@@ -29,7 +29,7 @@ SpringBoot Framework
 
 Spring Data JPA, QueryDsl, Spring Security
 
-Travis CI, Amazon EC2, S3, Code Deploy
+Travis CI, Amazon EC2, S3, Code Deploy ( 더 이상 사용하지 않음 )
 
 
 
